@@ -9,10 +9,14 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { environment } from 'src/environments/environment';
+import { CategoriesIndexComponent } from './categories/index/categories-index.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CategoriesIndexComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
