@@ -12,11 +12,14 @@ import { environment } from 'src/environments/environment';
 import { CategoriesIndexComponent } from './categories/index/categories-index.component';
 import { HomeComponent } from './home/home.component';
 
+import { NavigationComponent } from './components/navigation/navigation.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     CategoriesIndexComponent,
-    HomeComponent
+    HomeComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

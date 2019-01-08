@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-categories-index',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesIndexComponent implements OnInit {
 
-  constructor() { }
+  items: Observable<any[]>;
+
+  constructor(db: AngularFirestore) {
+    this.items = db.collection('categories').valueChanges();
+  }
 
   ngOnInit() {
   }
