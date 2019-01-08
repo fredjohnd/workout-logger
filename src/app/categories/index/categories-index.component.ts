@@ -1,6 +1,7 @@
+import { CategoriesService } from './../categories.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-categories-index',
@@ -11,8 +12,8 @@ export class CategoriesIndexComponent implements OnInit {
 
   items: Observable<any[]>;
 
-  constructor(db: AngularFirestore) {
-    this.items = db.collection('categories').valueChanges();
+  constructor(private catServ: CategoriesService) {
+    this.items = this.catServ.fetch();
   }
 
   ngOnInit() {
