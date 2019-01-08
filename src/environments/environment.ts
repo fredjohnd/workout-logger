@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyAABH09MP1bENfme7d-Y-64ZN6AzOwo4y8',
+    authDomain: 'fjd-workout-logger.firebaseapp.com',
+    databaseURL: 'https://fjd-workout-logger.firebaseio.com',
+    projectId: 'fjd-workout-logger',
+    storageBucket: 'fjd-workout-logger.appspot.com',
+    messagingSenderId: '323343540528'
+
+  }
 };
 
 /*

@@ -4,4 +4,10 @@
 <div class="alert alert-danger" role="alert">
   A simple danger alert—check it out!
 </div>
+
+<ul>
+  <li class="text" *ngFor="let item of items | async">
+    {{item.title}}
+  </li>
+</ul>
 <router-outlet></router-outlet>
