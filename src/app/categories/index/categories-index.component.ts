@@ -19,4 +19,8 @@ export class CategoriesIndexComponent implements OnInit {
   ngOnInit() {
   }
 
+  deleteCategory(category) {
+    this.catServ.delete(category);
+  }
+
 }

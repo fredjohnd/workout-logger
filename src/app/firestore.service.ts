@@ -39,4 +39,10 @@ export class FirestoreService {
     );
   }
 
+  deleteObject(collectionName: string, object) {
+    this.afs.doc(`${collectionName}/${object.id}`).delete().catch(error => {
+      console.log(error);
+  });
+}
+
 }

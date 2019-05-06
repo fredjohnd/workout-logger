@@ -11,6 +11,9 @@ export class CategoriesService {
 
   fetch() {
     return this.firestore.getCollection(config.api.categories);
+  }
 
+  delete(category) {
+    this.firestore.deleteObject('category', category);
   }
 }

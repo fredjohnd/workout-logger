@@ -1,5 +1,9 @@
-<ul>
-  <li class="text" *ngFor="let item of items | async">
-    {{item.title}}
-  </li>
-</ul>
+<div class="row">
+  <div class="col-md-12 col-lg-4">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let item of items | async">
+        <span class="list-item-name">{{item.title}}</span> <button type="button" (click)="deleteCategory(item)"class="btn btn-danger btn-sm btn-delete float-right">Delete</button>
+      </li>
+    </ul>
+  </div>
+</div>
