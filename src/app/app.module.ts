@@ -7,12 +7,16 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire';
 
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
+
 import { environment } from 'src/environments/environment';
 import { CategoriesIndexComponent } from './categories/index/categories-index.component';
 import { HomeComponent } from './home/home.component';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ExercisesComponent } from './categories/exercises/exercises.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +24,15 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     CategoriesIndexComponent,
     HomeComponent,
     NavigationComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ExercisesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    ReactiveFormsModule,
+    FormsModule,
     CoreModule
   ],
   providers: [],

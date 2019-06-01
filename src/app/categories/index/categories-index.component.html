@@ -2,8 +2,14 @@
   <div class="col-md-12 col-lg-4">
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let item of items | async">
-        <span class="list-item-name">{{item.title}}</span> <button type="button" (click)="deleteCategory(item)"class="btn btn-danger btn-sm btn-delete float-right">Delete</button>
+        <a [routerLink]="['/categories', item.id]" class="list-item-name">{{item.title}}</a>
+        <button type="button" (click)="deleteCategory(item)" class="btn btn-danger btn-sm btn-delete float-right">Delete</button>
       </li>
     </ul>
+  </div>
+
+  <div class="col-md-12 col-lg-4">
+    <input [(ngModel)]="categoryName" class="form-input" type="text"/>
+    <button (click)="addCategory()" type="button">Create</button>
   </div>
 </div>

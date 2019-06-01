@@ -1,7 +1,8 @@
 export const config = {
 
   api: {
-    categories: 'categories'
+    categories: 'categories',
+    exercises: 'exercises'
   }
 
 };

@@ -1,7 +1,7 @@
-import { Category } from './categories/category.model';
+import { Category } from './shared/category.model';
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
-import { map, tap, take, switchMap, mergeMap, expand, takeWhile } from 'rxjs/operators';
+
+import { map } from 'rxjs/operators';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -11,6 +11,7 @@ import {
   DocumentSnapshotDoesNotExist,
   DocumentSnapshotExists,
 } from '@angular/fire/firestore';
+import { Exercise } from './shared/exercise.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,30 +20,95 @@ import {
 export class FirestoreService {
   constructor(private afs: AngularFirestore) {}
 
-  getCollection(collectionName: string, orderBy: string = 'rank') {
+  getCollection(collectionName: string, orderBy?: string, where?: {key: string, value: string}) {
     return this.afs
-    .collection(collectionName, (ref) => ref.orderBy(orderBy))
+    .collection(collectionName, (ref) => {
+      // return ref;
+      if (where) {
+        return ref.where(where.key, '==', where.value).orderBy(orderBy);
+      } else {
+        if (orderBy) {
+          return ref.orderBy(orderBy);
+        } else {
+          return ref;
+        }
+      }
+    })
     .snapshotChanges()
     .pipe(
       map(actions => {
         return actions.map(a => {
 
+          // get doc type
+          const path = a.payload.doc.ref.path;
+          const interfaceType = path.split('/')[0];
+
+          let data;
           // Get doc data
-          const data = a.payload.doc.data() as Category;
+          switch (interfaceType) {
+            case 'exercises':
+              data = a.payload.doc.data() as Exercise;
+              break;
+            case 'categories':
+              data = a.payload.doc.data() as Category;
+              break;
+            default:
+              data = a.payload.doc.data();
+              break;
+          }
 
-          // Get doc Id
+          // Get doc id
           const id = a.payload.doc.id;
+          const ref = a.payload.doc.ref;
 
-          return {id, ...data};
+          data.id = id;
+          data.ref = ref;
+          return data;
+          // return {id, ref, ...data};
         });
       })
-    );
+      );
+    }
+
+    getSingle(docId) {
+      return this.afs.doc(`${docId}`)
+      .snapshotChanges()
+      .pipe(
+        map(doc => {
+
+           // get doc type
+           const path = doc.payload.ref.path;
+           const interfaceType = path.split('/')[0];
+
+           let data;
+           // Get doc data
+           switch (interfaceType) {
+             case 'exercises':
+               data = doc.payload.data() as Exercise;
+               break;
+             case 'categories':
+               data = doc.payload.data() as Category;
+               break;
+             default:
+               data = doc.payload.data();
+               break;
+           }
+
+          data.id = doc.payload.id;
+          data.ref = doc.payload.ref;
+          return data;
+        })
+      );
+    }
+
+    deleteObject(object) {
+      return object.ref.delete();
+    }
+
+    createObject(objectType, objectData) {
+      const id = this.afs.createId();
+      const doc = this.afs.doc(`${objectType}/${id}`);
+      doc.set(objectData);
+    }
+
   }
-
-  deleteObject(collectionName: string, object) {
-    this.afs.doc(`${collectionName}/${object.id}`).delete().catch(error => {
-      console.log(error);
-  });
-}
-
-}
