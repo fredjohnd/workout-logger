@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Exercise } from '../categories/exercises/exercise.model';
 import { FirestoreService } from '../firestore.service';
+import { Exercise } from './exercise.model';
 
 @Injectable({
   providedIn: 'root'

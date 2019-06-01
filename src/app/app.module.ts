@@ -11,21 +11,21 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
-import { CategoriesIndexComponent } from './categories/index/categories-index.component';
+import { CategoryIndexComponent } from './categories/index/category-index.component';
 import { HomeComponent } from './home/home.component';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { ExercisesComponent } from './categories/exercises/exercises.component';
+import { CategoryShowComponent } from './categories/show/category-show.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoriesIndexComponent,
+    CategoryIndexComponent,
+    CategoryShowComponent,
     HomeComponent,
     NavigationComponent,
-    UserProfileComponent,
-    ExercisesComponent
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

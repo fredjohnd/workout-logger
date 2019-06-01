@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Category } from '../../shared/category.model';
@@ -7,11 +7,11 @@ import { CategoryService } from '../../shared/category.service';
 
 
 @Component({
-  selector: 'app-categories-index',
-  templateUrl: './categories-index.component.html',
-  styleUrls: ['./categories-index.component.scss']
+  selector: 'app-category-index',
+  templateUrl: './category-index.component.html',
+  styleUrls: ['./category-index.component.scss']
 })
-export class CategoriesIndexComponent implements OnInit {
+export class CategoryIndexComponent implements OnInit {
 
   items: Observable<any>;
 

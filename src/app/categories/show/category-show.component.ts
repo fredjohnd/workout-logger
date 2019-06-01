@@ -1,19 +1,19 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { Category } from './../../shared/category.model';
+import { Category } from '../../shared/category.model';
 import { Exercise } from '../../shared/exercise.model';
 
 import { CategoryService } from '../../shared/category.service';
 import { ExerciseService } from '../../shared/exercise.service';
 
 @Component({
-  selector: 'app-exercises',
-  templateUrl: './exercises.component.html',
-  styleUrls: ['./exercises.component.scss']
+  selector: 'app-category-show',
+  templateUrl: './category-show.component.html',
+  styleUrls: ['./category-show.component.scss']
 })
-export class ExercisesComponent {
+export class CategoryShowComponent {
 
   // @ViewChild('exerciseName') exerciseName: ElementRef;
   exerciseName: string;
