@@ -8,7 +8,15 @@ import { Category } from './category.model';
 })
 export class CategoryService {
 
-  constructor(private firestore: FirestoreService) { }
+  categories: Category[];
+
+  constructor(private firestore: FirestoreService) {
+
+    // Store categories
+    this.fetchAll().subscribe(categories => {
+      this.categories = categories;
+    });
+  }
 
   fetchById(id) {
     return this.firestore.getSingle(`${config.api.categories}/${id}`);
@@ -23,7 +31,7 @@ export class CategoryService {
   }
 
   fetchExercisesForCategory(categoryId, sortBy = 'title') {
-    return this.firestore.getCollection(config.api.exercises, sortBy, {key: 'category', 'value': `categories/${categoryId}`});
+    return this.firestore.getCollection(config.api.exercises, sortBy, {key: 'category', value: categoryId});
   }
 
   delete(category: Category) {
@@ -32,5 +40,10 @@ export class CategoryService {
 
   add(category: Category) {
     this.firestore.createObject('categories', category);
+  }
+
+  getCategoryNameById(id: string) {
+    const category = this.categories.find(c => c.ref.id === id);
+    return category ? category.title : null;
   }
 }

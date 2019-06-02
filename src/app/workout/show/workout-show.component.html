@@ -1,3 +1,29 @@
 <h2>
-    <h2 *ngIf="workout">{{workout.start.seconds | amFromUnix | amDateFormat:'LLL'}}</h2>
+  <h2 *ngIf="workout">{{workout.start.seconds | amFromUnix | amDateFormat:'ddd DD MMMM YYYY'}}</h2>
 </h2>
+
+<div class="row">
+  <div class="col-md-12">
+    <div *ngIf="workout?.plan">
+
+      <ul *ngFor="let category of workout.plan; let categoryIndex = index">
+
+        <li>Category: {{this.getCategoryNameById(category.category)}}</li>
+
+        <ul *ngFor="let exercise of category.exercises; let exerciseIndex = index">
+
+          <li>Exercise: {{this.getExerciseNameById(exercise.exercise)}}</li>
+
+          <ul *ngFor="let value of exercise.values; let valueIndex = index">
+            <li><input [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)"></li>
+          </ul>
+
+          <div class="col-md-12 col-lg-4">
+            <button (click)="addExerciseValue(exercise)" type="button">Add Value</button>
+          </div>
+
+        </ul>
+      </ul>
+    </div>
+  </div>
+</div>

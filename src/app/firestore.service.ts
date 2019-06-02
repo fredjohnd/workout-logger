@@ -10,6 +10,8 @@ import {
   Action,
   DocumentSnapshotDoesNotExist,
   DocumentSnapshotExists,
+  DocumentReference,
+  DocumentData,
 } from '@angular/fire/firestore';
 import { Exercise } from './shared/exercise.model';
 import { Workout } from './shared/workout.model';
@@ -21,7 +23,7 @@ import { Workout } from './shared/workout.model';
 export class FirestoreService {
   constructor(private afs: AngularFirestore) {}
 
-  getCollection(collectionName: string, orderBy?: string, where?: {key: string, value: string}, orderIsDesc = false) {
+  getCollection(collectionName: string, orderBy?: string, where?: {key: string, value: string}) {
     return this.afs
     .collection(collectionName, (ref) => {
       // return ref;
@@ -30,7 +32,11 @@ export class FirestoreService {
       } else {
         if (orderBy) {
           const orderByArgs = orderBy.split(':');
-          return ref.orderBy(orderByArgs[0], orderByArgs[1]);
+
+          // for some reason typescript doesn't like the variable orderByArgs[1] as the second parameter,
+          // it really wants a string with either 'desc' or 'asc' so we got to work around it
+          // return ref.orderBy(orderByArgs[0], orderByArgs[1]);
+          return ref.orderBy(orderByArgs[0], orderByArgs[1] === 'desc' ? 'desc' : 'asc');
         } else {
           return ref;
         }
@@ -114,6 +120,10 @@ export class FirestoreService {
       const id = this.afs.createId();
       const doc = this.afs.doc(`${objectType}/${id}`);
       doc.set(objectData);
+    }
+
+    saveObject(ref: DocumentReference, objectData: DocumentData) {
+      ref.set(objectData);
     }
 
   }

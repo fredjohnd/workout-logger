@@ -1,3 +1,4 @@
+import { Workout } from './workout.model';
 import { Injectable } from '@angular/core';
 import { config } from '../app.config';
 import { FirestoreService } from '../firestore.service';
@@ -7,13 +8,17 @@ import { FirestoreService } from '../firestore.service';
 })
 export class WorkoutService {
 
-  constructor(private firestore: FirestoreService) { }
+  constructor(private firestore: FirestoreService) {}
 
-  fetchById(id) {
+  fetchById(id: string) {
     return this.firestore.getSingle(`${config.api.workouts}/${id}`);
   }
 
   fetchAll() {
     return this.firestore.getCollection(config.api.workouts, 'start:desc');
+  }
+
+  save(workout: Workout) {
+    return this.firestore.saveObject(workout.ref, workout);
   }
 }
