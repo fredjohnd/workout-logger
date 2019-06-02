@@ -91,6 +91,11 @@ export class WorkoutShowComponent {
     this.onCloseItemPicker();
   }
 
+  deleteExercise(categoryIndex: number, exerciseIndex: number) {
+    this.workout.plan[categoryIndex].exercises.splice(exerciseIndex, 1);
+    this.saveWorkout();
+  }
+
   addExerciseValue(exercise: WorkoutExercise) {
     exercise.values.push('10x10');
     this.saveWorkout();

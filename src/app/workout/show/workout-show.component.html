@@ -12,7 +12,7 @@
 
         <ul *ngFor="let exercise of category.exercises; let exerciseIndex = index">
 
-          <li>Exercise: {{this.getExerciseNameById(exercise.exercise)}}</li>
+          <li>Exercise: {{this.getExerciseNameById(exercise.exercise)}} <button (click)="this.deleteExercise(categoryIndex, exerciseIndex)">Delete</button></li>
 
           <ul *ngFor="let value of exercise.values; let valueIndex = index">
             <li><input [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)"></li>

@@ -44,7 +44,6 @@ export class CategoryShowComponent {
   addExercise() {
     const exercise: Exercise = {
       title: this.exerciseName,
-      // title: this.exerciseName.nativeElement.value,
       rank: 0,
       category: this.category.ref.id
     };
