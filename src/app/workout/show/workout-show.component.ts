@@ -1,4 +1,4 @@
-import { WorkoutExercise } from './../../shared/workout.model';
+import { WorkoutExercise, WorkoutPlanCategory } from './../../shared/workout.model';
 import { CategoryService } from './../../shared/category.service';
 import { WorkoutService } from './../../shared/workout.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
@@ -17,6 +17,9 @@ export class WorkoutShowComponent {
 
   id: string;
   workout: Workout;
+
+  showExercisePicker = false;
+  exercisePickerCategoryId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,12 +42,31 @@ export class WorkoutShowComponent {
 
   }
 
-  getCategoryNameById(categoryId: string) {
+  getCategoryNameById(categoryId: string): string {
     return this.categoryService.getCategoryNameById(categoryId);
   }
 
-  getExerciseNameById(exerciseId: string) {
+  getExerciseNameById(exerciseId: string): string {
     return this.exerciseService.getExerciseNameById(exerciseId);
+  }
+
+  onShowExercisePicker(category: WorkoutPlanCategory) {
+    this.showExercisePicker = true;
+    this.exercisePickerCategoryId = category.category;
+  }
+
+  onCloseExercisePicker() {
+    this.showExercisePicker = false;
+  }
+
+  addExerciseToCategory(exerciseId: string) {
+    const categoryIndex = this.workout.plan.findIndex(cat => cat.category === this.exercisePickerCategoryId);
+    const exercise: WorkoutExercise = {
+      exercise: exerciseId,
+      values: []
+    };
+    this.workout.plan[categoryIndex].exercises.push(exercise);
+    this.saveWorkout();
   }
 
   addExerciseValue(exercise: WorkoutExercise) {

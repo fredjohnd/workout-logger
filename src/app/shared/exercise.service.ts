@@ -13,12 +13,12 @@ export class ExerciseService {
   constructor(private firestore: FirestoreService) {
 
     // Store exercises
-    this.fetch().subscribe(exercises => {
+    this.fetchAll().subscribe(exercises => {
       this.exercises = exercises;
     });
   }
 
-  fetch() {
+  fetchAll() {
     return this.firestore.getCollection(config.api.exercises, 'category');
   }
 
@@ -30,8 +30,12 @@ export class ExerciseService {
     this.firestore.deleteObject(exercise);
   }
 
-  getExerciseNameById(exerciseId) {
+  getExerciseNameById(exerciseId: string) {
     const exercise = this.exercises.find(e => e.ref.id === exerciseId);
     return exercise ? exercise.title : null;
+  }
+
+  getExercisesForCategory(categoryId: string) {
+    return this.exercises.filter(e => e.category === categoryId);
   }
 }

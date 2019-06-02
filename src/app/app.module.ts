@@ -21,6 +21,7 @@ import { CategoryIndexComponent } from './categories/index/category-index.compon
 import { CategoryShowComponent } from './categories/show/category-show.component';
 import { WorkoutIndexComponent } from './workout/index/workout-index.component';
 import { WorkoutShowComponent } from './workout/show/workout-show.component';
+import { ExerciseSelectorComponent } from './components/exercise-selector/exercise-selector.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { WorkoutShowComponent } from './workout/show/workout-show.component';
     NavigationComponent,
     UserProfileComponent,
     WorkoutIndexComponent,
-    WorkoutShowComponent
+    WorkoutShowComponent,
+    ExerciseSelectorComponent
   ],
   imports: [
     BrowserModule,

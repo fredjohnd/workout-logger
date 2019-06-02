@@ -3,7 +3,7 @@
 </h2>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6">
     <div *ngIf="workout?.plan">
 
       <ul *ngFor="let category of workout.plan; let categoryIndex = index">
@@ -19,11 +19,21 @@
           </ul>
 
           <div class="col-md-12 col-lg-4">
-            <button (click)="addExerciseValue(exercise)" type="button">Add Value</button>
+            <button (click)="this.addExerciseValue(exercise)" type="button">Add Value</button>
           </div>
 
         </ul>
+        <button (click)="this.onShowExercisePicker(category)">Add Exercise</button>
+        <button (click)="this.onCloseExercisePicker()">Close</button>
       </ul>
     </div>
   </div>
+
+  <div class="col-md-6" *ngIf="showExercisePicker">
+    <app-exercise-selector
+    [categoryId]="exercisePickerCategoryId"
+    (exerciseSelected)="this.addExerciseToCategory($event)">
+  </app-exercise-selector>
+  </div>
+
 </div>
