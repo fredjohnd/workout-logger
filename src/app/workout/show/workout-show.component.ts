@@ -1,3 +1,4 @@
+import { Category } from './../../shared/category.model';
 import { WorkoutExercise, WorkoutPlanCategory } from './../../shared/workout.model';
 import { CategoryService } from './../../shared/category.service';
 import { WorkoutService } from './../../shared/workout.service';
@@ -19,7 +20,9 @@ export class WorkoutShowComponent {
   workout: Workout;
 
   showExercisePicker = false;
-  exercisePickerCategoryId: string;
+  showCategoryPicker = false;
+  itemPickerData = null;
+  itemPickerId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,21 +55,40 @@ export class WorkoutShowComponent {
 
   onShowExercisePicker(category: WorkoutPlanCategory) {
     this.showExercisePicker = true;
-    this.exercisePickerCategoryId = category.category;
+    this.itemPickerData = this.exerciseService.getExercisesForCategory(category.category);
+    this.itemPickerId = category.category;
   }
 
-  onCloseExercisePicker() {
+  onShowCategoryPicker() {
+    this.showCategoryPicker = true;
+    this.itemPickerData = this.categoryService.categories;
+  }
+
+  onCloseItemPicker() {
     this.showExercisePicker = false;
+    this.showCategoryPicker = false;
+    this.itemPickerData = null;
+    this.itemPickerId = null;
   }
 
-  addExerciseToCategory(exerciseId: string) {
-    const categoryIndex = this.workout.plan.findIndex(cat => cat.category === this.exercisePickerCategoryId);
+  addCategoryToPlan(category: Category) {
+    const workoutCategory: WorkoutPlanCategory = {
+      category: category.ref.id,
+      exercises: []};
+
+    this.workout.plan.push(workoutCategory);
+    this.onCloseItemPicker();
+  }
+
+  addExerciseToCategory(item: Exercise) {
+    const categoryIndex = this.workout.plan.findIndex(cat => cat.category === this.itemPickerId);
     const exercise: WorkoutExercise = {
-      exercise: exerciseId,
+      exercise: item.ref.id,
       values: []
     };
     this.workout.plan[categoryIndex].exercises.push(exercise);
     this.saveWorkout();
+    this.onCloseItemPicker();
   }
 
   addExerciseValue(exercise: WorkoutExercise) {

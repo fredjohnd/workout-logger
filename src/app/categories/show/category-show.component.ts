@@ -46,7 +46,7 @@ export class CategoryShowComponent {
       title: this.exerciseName,
       // title: this.exerciseName.nativeElement.value,
       rank: 0,
-      category: this.category.ref.path
+      category: this.category.ref.id
     };
 
     this.exerciseService.add(exercise);

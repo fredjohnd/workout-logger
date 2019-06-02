@@ -24,16 +24,24 @@
 
         </ul>
         <button (click)="this.onShowExercisePicker(category)">Add Exercise</button>
-        <button (click)="this.onCloseExercisePicker()">Close</button>
       </ul>
+      <button (click)="this.onShowCategoryPicker()">Add Category</button>
+      <p><button (click)="this.onCloseItemPicker()">Close</button></p>
     </div>
   </div>
 
   <div class="col-md-6" *ngIf="showExercisePicker">
-    <app-exercise-selector
-    [categoryId]="exercisePickerCategoryId"
-    (exerciseSelected)="this.addExerciseToCategory($event)">
-  </app-exercise-selector>
+    <app-item-selector
+    [items]="itemPickerData"
+    (itemSelected)="this.addExerciseToCategory($event)">
+  </app-item-selector>
+  </div>
+
+  <div class="col-md-6" *ngIf="showCategoryPicker">
+    <app-item-selector
+    [items]="itemPickerData"
+    (itemSelected)="this.addCategoryToPlan($event)">
+  </app-item-selector>
   </div>
 
 </div>
