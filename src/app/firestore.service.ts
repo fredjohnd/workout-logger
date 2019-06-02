@@ -12,6 +12,7 @@ import {
   DocumentSnapshotExists,
 } from '@angular/fire/firestore';
 import { Exercise } from './shared/exercise.model';
+import { Workout } from './shared/workout.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ import { Exercise } from './shared/exercise.model';
 export class FirestoreService {
   constructor(private afs: AngularFirestore) {}
 
-  getCollection(collectionName: string, orderBy?: string, where?: {key: string, value: string}) {
+  getCollection(collectionName: string, orderBy?: string, where?: {key: string, value: string}, orderIsDesc = false) {
     return this.afs
     .collection(collectionName, (ref) => {
       // return ref;
@@ -28,7 +29,8 @@ export class FirestoreService {
         return ref.where(where.key, '==', where.value).orderBy(orderBy);
       } else {
         if (orderBy) {
-          return ref.orderBy(orderBy);
+          const orderByArgs = orderBy.split(':');
+          return ref.orderBy(orderByArgs[0], orderByArgs[1]);
         } else {
           return ref;
         }
@@ -51,6 +53,9 @@ export class FirestoreService {
               break;
             case 'categories':
               data = a.payload.doc.data() as Category;
+              break;
+            case 'workout':
+              data = a.payload.doc.data() as Workout;
               break;
             default:
               data = a.payload.doc.data();

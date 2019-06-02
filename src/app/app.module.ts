@@ -6,17 +6,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire';
+import { MomentModule } from 'ngx-moment';
 
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
-import { CategoryIndexComponent } from './categories/index/category-index.component';
 import { HomeComponent } from './home/home.component';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+
+import { CategoryIndexComponent } from './categories/index/category-index.component';
 import { CategoryShowComponent } from './categories/show/category-show.component';
+import { WorkoutIndexComponent } from './workout/index/workout-index.component';
+import { WorkoutShowComponent } from './workout/show/workout-show.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +29,15 @@ import { CategoryShowComponent } from './categories/show/category-show.component
     CategoryShowComponent,
     HomeComponent,
     NavigationComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    WorkoutIndexComponent,
+    WorkoutShowComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    MomentModule,
     ReactiveFormsModule,
     FormsModule,
     CoreModule

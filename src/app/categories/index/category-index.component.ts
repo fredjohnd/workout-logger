@@ -18,7 +18,7 @@ export class CategoryIndexComponent implements OnInit {
   categoryName: string;
 
   constructor(private categoryService: CategoryService) {
-    this.items = this.categoryService.fetchAll();
+    this.items = this.categoryService.fetchAll('rank');
 
     this.items.subscribe(items => {
       console.log(items);
