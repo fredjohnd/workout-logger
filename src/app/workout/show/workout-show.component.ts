@@ -2,20 +2,21 @@ import { Category } from './../../shared/category.model';
 import { WorkoutExercise, WorkoutPlanCategory } from './../../shared/workout.model';
 import { CategoryService } from './../../shared/category.service';
 import { WorkoutService } from './../../shared/workout.service';
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { Workout } from 'src/app/shared/workout.model';
 import { ExerciseService } from 'src/app/shared/exercise.service';
 import { Exercise } from 'src/app/shared/exercise.model';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-workout-show',
   templateUrl: './workout-show.component.html',
   styleUrls: ['./workout-show.component.scss']
 })
-export class WorkoutShowComponent {
+export class WorkoutShowComponent implements OnDestroy {
 
   id: string;
   workout: Workout;
@@ -24,6 +25,7 @@ export class WorkoutShowComponent {
   showCategoryPicker = false;
   itemPickerData = null;
   itemPickerId: string;
+  modelSubscription: Subscription = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +34,7 @@ export class WorkoutShowComponent {
     private exerciseService: ExerciseService
     ) {
 
-    this.route.params.subscribe(params => {
+    this.modelSubscription = this.route.params.subscribe(params => {
       this.model(params);
     });
    }
@@ -41,6 +43,7 @@ export class WorkoutShowComponent {
     this.id = params.id;
 
     this.workoutService.fetchById(this.id).subscribe(workout => {
+      console.log('Subscribe workout-show');
       console.log(workout);
       if (workout) {
         this.workout = workout;
@@ -122,6 +125,11 @@ export class WorkoutShowComponent {
 
   saveWorkout() {
     this.workoutService.save(this.workout);
+  }
+
+  ngOnDestroy() {
+    console.log('Unsubscribe');
+    this.modelSubscription.unsubscribe();
   }
 
 }

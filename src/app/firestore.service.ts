@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { normalize, serialize } from './serializers/main.serializer';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import {
   AngularFirestore,
   DocumentReference,
@@ -37,7 +37,7 @@ export class FirestoreService {
     .snapshotChanges()
     .pipe(
       map(actions => {
-        return actions.map(a => {
+        return actions.filter(a => a.payload.doc.exists).map(a => {
           return normalize(a.payload.doc as DocumentSnapshot<{}>);
         });
       })
@@ -48,8 +48,8 @@ export class FirestoreService {
       return this.afs.doc(`${docId}`)
       .snapshotChanges()
       .pipe(
+        filter(doc => doc.payload.exists),
         map(doc => {
-
           return normalize(doc.payload);
         })
         );

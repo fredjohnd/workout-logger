@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { Category } from '../../shared/category.model';
 import { Exercise } from '../../shared/exercise.model';
@@ -13,12 +13,13 @@ import { ExerciseService } from '../../shared/exercise.service';
   templateUrl: './category-show.component.html',
   styleUrls: ['./category-show.component.scss']
 })
-export class CategoryShowComponent {
+export class CategoryShowComponent implements OnDestroy {
 
   exerciseName: string;
   id: string;
   items: Observable<Exercise[]>;
   category: Category;
+  modelSubscription: Subscription = null;
 
   constructor(private route: ActivatedRoute, private categoryService: CategoryService, private exerciseService: ExerciseService) {
 
@@ -29,7 +30,7 @@ export class CategoryShowComponent {
 
    model(params) {
     this.id = params.id;
-    this.categoryService.fetchById(this.id).subscribe(cat => {
+    this.modelSubscription = this.categoryService.fetchById(this.id).subscribe(cat => {
       console.log(cat);
       this.category = cat;
     });
@@ -53,6 +54,10 @@ export class CategoryShowComponent {
 
   deleteExercise(exercise: Exercise) {
     this.exerciseService.delete(exercise);
+  }
+
+  ngOnDestroy() {
+    this.modelSubscription.unsubscribe();
   }
 
 }
