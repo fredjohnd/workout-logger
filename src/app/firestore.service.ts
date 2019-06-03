@@ -55,17 +55,17 @@ export class FirestoreService {
           // Get doc data
           switch (interfaceType) {
             case 'exercises':
-              data = a.payload.doc.data() as Exercise;
-              break;
+            data = a.payload.doc.data() as Exercise;
+            break;
             case 'categories':
-              data = a.payload.doc.data() as Category;
-              break;
+            data = a.payload.doc.data() as Category;
+            break;
             case 'workout':
-              data = a.payload.doc.data() as Workout;
-              break;
+            data = a.payload.doc.data() as Workout;
+            break;
             default:
-              data = a.payload.doc.data();
-              break;
+            data = a.payload.doc.data();
+            break;
           }
 
           // Get doc id
@@ -87,43 +87,45 @@ export class FirestoreService {
       .pipe(
         map(doc => {
 
-           // get doc type
-           const path = doc.payload.ref.path;
-           const interfaceType = path.split('/')[0];
+          // get doc type
+          const path = doc.payload.ref.path;
+          const interfaceType = path.split('/')[0];
 
-           let data;
-           // Get doc data
-           switch (interfaceType) {
-             case 'exercises':
-               data = doc.payload.data() as Exercise;
-               break;
-             case 'categories':
-               data = doc.payload.data() as Category;
-               break;
-             default:
-               data = doc.payload.data();
-               break;
-           }
+          let data;
+          // Get doc data
+          switch (interfaceType) {
+            case 'exercises':
+            data = doc.payload.data() as Exercise;
+            break;
+            case 'categories':
+            data = doc.payload.data() as Category;
+            break;
+            default:
+            data = doc.payload.data();
+            break;
+          }
 
-          data.id = doc.payload.id;
-          data.ref = doc.payload.ref;
+          if (data && doc.payload.exists) {
+            data.id = doc.payload.id;
+            data.ref = doc.payload.ref;
+          }
           return data;
         })
-      );
-    }
+        );
+      }
 
-    deleteObject(object) {
-      return object.ref.delete();
-    }
+      deleteObject(object) {
+        return object.ref.delete();
+      }
 
-    createObject(objectType, objectData) {
-      const id = this.afs.createId();
-      const doc = this.afs.doc(`${objectType}/${id}`);
-      doc.set(objectData);
-    }
+      createObject(objectType, objectData) {
+        const id = this.afs.createId();
+        const doc = this.afs.doc(`${objectType}/${id}`);
+        doc.set(objectData);
+      }
 
-    saveObject(ref: DocumentReference, objectData: DocumentData) {
-      ref.set(objectData);
-    }
+      saveObject(ref: DocumentReference, objectData: DocumentData) {
+        ref.set(objectData);
+      }
 
-  }
+    }

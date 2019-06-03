@@ -3,14 +3,13 @@
   <div class="col-md-12 col-lg-4">
     <ul class="list-group">
       <li class="list-group-item"  *ngFor="let item of items | async">
-        <a [routerLink]="['/workouts', item.id]" class="list-item-name">{{item.start.seconds | amFromUnix | amDateFormat:'ddd DD MMMM YYYY'}}</a>
+        <a [routerLink]="['/workouts', item.id]" class="list-item-name">{{item.start.seconds | amFromUnix | amDateFormat:'ddd DD MMMM YYYY'}} </a> <button (click)="this.deleteWorkout(item)">Delete</button>
 
       </li>
     </ul>
   </div>
 
-  <!-- <div class="col-md-12 col-lg-4">
-    <input [(ngModel)]="exerciseName" class="form-input" type="text"/>
-    <button (click)="addExercise()" type="button">Create</button>
-  </div> -->
+  <div class="col-md-12 col-lg-4">
+    <button (click)="addWorkout()" type="button">New workout</button>
+  </div>
 </div>

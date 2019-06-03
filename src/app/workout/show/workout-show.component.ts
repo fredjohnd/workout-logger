@@ -38,9 +38,12 @@ export class WorkoutShowComponent {
 
    model(params: Params) {
     this.id = params.id;
+
     this.workoutService.fetchById(this.id).subscribe(workout => {
       console.log(workout);
-      this.workout = workout;
+      if (workout) {
+        this.workout = workout;
+      }
     });
 
   }
@@ -93,6 +96,11 @@ export class WorkoutShowComponent {
 
   deleteExercise(categoryIndex: number, exerciseIndex: number) {
     this.workout.plan[categoryIndex].exercises.splice(exerciseIndex, 1);
+    this.saveWorkout();
+  }
+
+  deleteCategory(categoryIndex: number) {
+    this.workout.plan.splice(categoryIndex, 1);
     this.saveWorkout();
   }
 

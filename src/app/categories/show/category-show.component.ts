@@ -15,7 +15,6 @@ import { ExerciseService } from '../../shared/exercise.service';
 })
 export class CategoryShowComponent {
 
-  // @ViewChild('exerciseName') exerciseName: ElementRef;
   exerciseName: string;
   id: string;
   items: Observable<Exercise[]>;

@@ -29,4 +29,12 @@ export class WorkoutIndexComponent {
     });
   }
 
+  addWorkout() {
+    this.workoutService.add();
+  }
+
+  deleteWorkout(workout: Workout) {
+    this.workoutService.delete(workout);
+  }
+
 }

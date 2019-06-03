@@ -21,4 +21,18 @@ export class WorkoutService {
   save(workout: Workout) {
     return this.firestore.saveObject(workout.ref, workout);
   }
+
+  add() {
+    const workout: Workout = {
+      start: {seconds: (Date.now() / 1000).toString()},
+      finish: null,
+      plan: []
+    };
+
+    return this.firestore.createObject('workouts', workout);
+  }
+
+  delete(workout: Workout) {
+    return this.firestore.deleteObject(workout);
+  }
 }
