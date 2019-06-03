@@ -6,7 +6,7 @@ import * as moment from 'moment';
 export function normalize(doc: DocumentSnapshot<any>): Workout {
   const data = doc.data(); // hello
   data.start = data.start ? moment(data.start) : null;
-  data.finish = data.finish ? moment(data.start) : null;
+  data.finish = data.finish ? moment(data.finish) : null;
   return data as Workout;
 }
 

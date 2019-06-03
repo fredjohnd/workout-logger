@@ -1,7 +1,8 @@
-<h2>
-  <h2 *ngIf="workout">{{workout.start | amDateFormat:'ddd DD MMMM YYYY HH:mm:ss'}}</h2>
-  <!-- <h2 *ngIf="workout">{{workout.start}}</h2> -->
-</h2>
+
+<div *ngIf="workout">
+  <h2>{{workout.start | amDateFormat:'ddd DD MMMM YYYY HH:mm:ss'}}</h2>
+  <input [value]="workout.start | amDateFormat: 'YYYY-MM-DD HH:mm'" (blur)="this.updateWorkoutDate('start', $event)">
+</div>
 
 <div class="row">
   <div class="col-md-6">
@@ -28,8 +29,13 @@
       </ul>
       <button (click)="this.onShowCategoryPicker()">Add Category</button>
       <p><button (click)="this.onCloseItemPicker()">Close</button></p>
-      <p><button (click)="this.onEndWorkout()">End workout</button></p>
-    </div>
+
+      <p>Finish workout time:
+        <input [value]="workout.finish | amDateFormat: 'YYYY-MM-DD HH:mm'" (blur)="this.updateWorkoutDate('finish', $event)">
+      </p>
+
+      <p><button (click)="this.saveWorkout()">Save Workout</button></p>
+      </div>
   </div>
 
   <div class="col-md-6" *ngIf="showExercisePicker">

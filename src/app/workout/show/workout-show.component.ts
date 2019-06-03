@@ -43,7 +43,6 @@ export class WorkoutShowComponent implements OnDestroy {
     this.id = params.id;
 
     this.workoutService.fetchById(this.id).subscribe(workout => {
-      console.log('Subscribe workout-show');
       console.log(workout);
       if (workout) {
         this.workout = workout;
@@ -80,7 +79,7 @@ export class WorkoutShowComponent implements OnDestroy {
 
   onEndWorkout() {
     this.workout.finish = moment().startOf('m');
-    this.saveWorkout();
+    // this.saveWorkout();
   }
 
   addCategoryToPlan(category: Category) {
@@ -99,28 +98,33 @@ export class WorkoutShowComponent implements OnDestroy {
       values: []
     };
     this.workout.plan[categoryIndex].exercises.push(exercise);
-    this.saveWorkout();
+    // this.saveWorkout();
     this.onCloseItemPicker();
   }
 
   deleteExercise(categoryIndex: number, exerciseIndex: number) {
     this.workout.plan[categoryIndex].exercises.splice(exerciseIndex, 1);
-    this.saveWorkout();
+    // this.saveWorkout();
   }
 
   deleteCategory(categoryIndex: number) {
     this.workout.plan.splice(categoryIndex, 1);
-    this.saveWorkout();
+    // this.saveWorkout();
   }
 
   addExerciseValue(exercise: WorkoutExercise) {
     exercise.values.push('10x10');
-    this.saveWorkout();
+    // this.saveWorkout();
   }
 
   updateValue(categoryIndex: number, exerciseIndex: number, valueIndex: number , value: string) {
     this.workout.plan[categoryIndex].exercises[exerciseIndex].values[valueIndex] = value;
-    this.saveWorkout();
+    // this.saveWorkout();
+  }
+
+  updateWorkoutDate(datePropertyName: string, event: Event) {
+    const value = (<HTMLInputElement>event.target).value;
+    this.workout[datePropertyName] = value;
   }
 
   saveWorkout() {
