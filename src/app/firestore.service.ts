@@ -1,20 +1,12 @@
-import { Category } from './shared/category.model';
 import { Injectable } from '@angular/core';
-
+import { normalize, serialize } from './serializers/main.serializer';
 import { map } from 'rxjs/operators';
 import {
   AngularFirestore,
-  AngularFirestoreDocument,
-  AngularFirestoreCollection,
-  DocumentChangeAction,
-  Action,
-  DocumentSnapshotDoesNotExist,
-  DocumentSnapshotExists,
   DocumentReference,
   DocumentData,
+  DocumentSnapshot,
 } from '@angular/fire/firestore';
-import { Exercise } from './shared/exercise.model';
-import { Workout } from './shared/workout.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,36 +38,7 @@ export class FirestoreService {
     .pipe(
       map(actions => {
         return actions.map(a => {
-
-          // get doc type
-          const path = a.payload.doc.ref.path;
-          const interfaceType = path.split('/')[0];
-
-          let data;
-          // Get doc data
-          switch (interfaceType) {
-            case 'exercises':
-            data = a.payload.doc.data() as Exercise;
-            break;
-            case 'categories':
-            data = a.payload.doc.data() as Category;
-            break;
-            case 'workout':
-            data = a.payload.doc.data() as Workout;
-            break;
-            default:
-            data = a.payload.doc.data();
-            break;
-          }
-
-          // Get doc id
-          const id = a.payload.doc.id;
-          const ref = a.payload.doc.ref;
-
-          data.id = id;
-          data.ref = ref;
-          return data;
-          // return {id, ref, ...data};
+          return normalize(a.payload.doc as DocumentSnapshot<{}>);
         });
       })
       );
@@ -87,29 +50,7 @@ export class FirestoreService {
       .pipe(
         map(doc => {
 
-          // get doc type
-          const path = doc.payload.ref.path;
-          const interfaceType = path.split('/')[0];
-
-          let data;
-          // Get doc data
-          switch (interfaceType) {
-            case 'exercises':
-            data = doc.payload.data() as Exercise;
-            break;
-            case 'categories':
-            data = doc.payload.data() as Category;
-            break;
-            default:
-            data = doc.payload.data();
-            break;
-          }
-
-          if (data && doc.payload.exists) {
-            data.id = doc.payload.id;
-            data.ref = doc.payload.ref;
-          }
-          return data;
+          return normalize(doc.payload);
         })
         );
       }
@@ -121,11 +62,13 @@ export class FirestoreService {
       createObject(objectType, objectData) {
         const id = this.afs.createId();
         const doc = this.afs.doc(`${objectType}/${id}`);
-        doc.set(objectData);
+        const serialized = serialize(doc.ref, objectData);
+        doc.set(serialized);
       }
 
       saveObject(ref: DocumentReference, objectData: DocumentData) {
-        ref.set(objectData);
+        const serialized = serialize(ref, objectData);
+        ref.set(serialized);
       }
 
     }

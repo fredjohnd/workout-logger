@@ -1,5 +1,6 @@
 <h2>
-  <h2 *ngIf="workout">{{workout.start.seconds | amFromUnix | amDateFormat:'ddd DD MMMM YYYY'}}</h2>
+  <h2 *ngIf="workout">{{workout.start | amDateFormat:'ddd DD MMMM YYYY HH:mm'}}</h2>
+  <!-- <h2 *ngIf="workout">{{workout.start}}</h2> -->
 </h2>
 
 <div class="row">
@@ -27,6 +28,7 @@
       </ul>
       <button (click)="this.onShowCategoryPicker()">Add Category</button>
       <p><button (click)="this.onCloseItemPicker()">Close</button></p>
+      <p><button (click)="this.onEndWorkout()">end workout</button></p>
     </div>
   </div>
 

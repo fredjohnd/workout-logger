@@ -2,6 +2,7 @@ import { Workout } from './workout.model';
 import { Injectable } from '@angular/core';
 import { config } from '../app.config';
 import { FirestoreService } from '../firestore.service';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class WorkoutService {
 
   add() {
     const workout: Workout = {
-      start: {seconds: (Date.now() / 1000).toString()},
+      start: moment(),
       finish: null,
       plan: []
     };

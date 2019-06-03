@@ -4,10 +4,11 @@ import { CategoryService } from './../../shared/category.service';
 import { WorkoutService } from './../../shared/workout.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
+
 import { Workout } from 'src/app/shared/workout.model';
 import { ExerciseService } from 'src/app/shared/exercise.service';
 import { Exercise } from 'src/app/shared/exercise.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-workout-show',
@@ -72,6 +73,11 @@ export class WorkoutShowComponent {
     this.showCategoryPicker = false;
     this.itemPickerData = null;
     this.itemPickerId = null;
+  }
+
+  onEndWorkout() {
+    this.workout.finish = moment().startOf('m');
+    this.saveWorkout();
   }
 
   addCategoryToPlan(category: Category) {

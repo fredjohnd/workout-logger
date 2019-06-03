@@ -1,11 +1,12 @@
 import { DocumentReference } from '@angular/fire/firestore';
+import { Moment } from 'moment';
 
 export interface Workout {
   id?: string;
-  start?: WorkoutTimestamp;
-  finish?: WorkoutTimestamp;
+  start?: Moment;
+  finish?: Moment;
   ref?: DocumentReference;
-  plan?: WorkoutPlanCategory[]
+  plan?: WorkoutPlanCategory[];
 }
 
 export interface WorkoutPlanCategory {
