@@ -1,25 +1,27 @@
+<div class="">
+    <h2 class="page-title mb-4">Categories</h2>
+    <!-- <input [(ngModel)]="categoryName" class="form-input" type="text"/> -->
+    <!-- <button (click)="addCategory()" type="button">Create</button> -->
+    <button (click)="openModalAddCategory()" type="button">Create</button>
+</div>
 <div class="row">
 
   <div *ngFor="let item of items | async" class="col-4 col-md-3 mb-5">
 
-    <mat-card [routerLink]="['/categories', item.id]">
+    <mat-card>
+
+      <a [routerLink]="['/categories', item.id]">
       <mat-card-header>
         <!-- <div mat-card-avatar class="example-header-image"></div> -->
         <mat-card-title>{{item.title}}</mat-card-title>
         <mat-card-subtitle>8 Exercises</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image src="assets/images/{{item.image}}" alt="{{item.title}}">
+      <img [routerLink]="['/categories', item.id]" mat-card-image src="assets/images/{{item.image}}" alt="{{item.title}}">
       <mat-card-content><p></p></mat-card-content>
+    </a>
       <mat-card-actions class="text-right">
         <button mat-button [routerLink]="['/categories', item.id]">Edit</button>
-        <button disabled mat-button (click)="this.deleteCategory(item)">Delete</button>
+        <button mat-button (click)="this.openModalDeleteCategory(item)">Delete</button>
       </mat-card-actions>
     </mat-card>
 </div>
-    <div class="row">
-      <div class="col-md-12 col-lg-4">
-        <input [(ngModel)]="categoryName" class="form-input" type="text"/>
-        <button (click)="addCategory()" type="button">Create</button>
-      </div>
-
-    </div>

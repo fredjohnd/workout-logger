@@ -12,8 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatInputModule } from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { environment } from 'src/environments/environment';
 import { HomeComponent } from './home/home.component';
@@ -27,6 +29,8 @@ import { WorkoutIndexComponent } from './workout/index/workout-index.component';
 import { WorkoutShowComponent } from './workout/show/workout-show.component';
 import { ItemSelectorComponent } from './components/item-selector/item-selector.component';
 import { WorkoutHeaderNavigationComponent } from './components/workout-header-navigation/workout-header-navigation.component';
+import { InputDialogComponent } from './components/input-dialog/input-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,9 @@ import { WorkoutHeaderNavigationComponent } from './components/workout-header-na
     WorkoutIndexComponent,
     WorkoutShowComponent,
     ItemSelectorComponent,
-    WorkoutHeaderNavigationComponent
+    WorkoutHeaderNavigationComponent,
+    InputDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +57,14 @@ import { WorkoutHeaderNavigationComponent } from './components/workout-header-na
     CoreModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
+  entryComponents: [
+    InputDialogComponent,
+    ConfirmDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
