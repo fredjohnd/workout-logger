@@ -11,6 +11,10 @@ import { MomentModule } from 'ngx-moment';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
+
 import { environment } from 'src/environments/environment';
 import { HomeComponent } from './home/home.component';
 
@@ -44,7 +48,10 @@ import { WorkoutHeaderNavigationComponent } from './components/workout-header-na
     MomentModule,
     ReactiveFormsModule,
     FormsModule,
-    CoreModule
+    CoreModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

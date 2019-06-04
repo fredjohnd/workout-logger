@@ -2,8 +2,20 @@
 
 .navbar-logo {
   width: 40px;
+  margin-right: 10px;
+  fill: white;
 }
 
 .nav-link {
   font-family: $font-secondary;
+}
+
+.navigation-header {
+  background: #3f51b5;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 16px;
+  margin-bottom: 20px;
 }

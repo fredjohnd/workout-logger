@@ -1,4 +1,5 @@
 @import "./shared/scss/variables";
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 html, body {
   background-color: $bg-color;
@@ -26,4 +27,10 @@ a, .card-title {
 .card {
   background-color: $bg-color;
   border-color: darken($bg-color, 10%);
+}
+
+.mat-button {
+  &:focus, &:active {
+    outline: none;
+  }
 }

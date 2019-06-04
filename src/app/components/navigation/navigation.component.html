@@ -1,18 +1,6 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-  <a class="navbar-brand" href="#"><img src="/assets/logo.png" class="navbar-logo"></a>
-
-  <div class="" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" >
-        <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="workouts">Workouts</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="categories">Categories</a>
-      </li>
-    </ul>
-
-  </div>
-</nav>
+<div class="mat-elevation-z6">
+  <nav class="navigation-header">
+    <button mat-button routerLinkActive="mat-elevation-z6" routerLink="/" [routerLinkActiveOptions]="{exact: true}"><img src="/assets/logo-white.png" class="navbar-logo"> <span>Home</span></button>
+    <button mat-button routerLinkActive="mat-elevation-z6" routerLink="workouts">Workouts</button>
+    <button mat-button routerLinkActive="mat-elevation-z6" routerLink="categories">Categories</button>
+  </nav>
