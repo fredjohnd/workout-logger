@@ -1,5 +1,9 @@
 
 <div *ngIf="workout">
+  <app-workout-header-navigation
+  [model]="workout">
+  </app-workout-header-navigation>
+
   <h2>{{workout.start | amDateFormat:'ddd DD MMMM YYYY HH:mm:ss'}}</h2>
   <input [value]="workout.start | amDateFormat: 'YYYY-MM-DD HH:mm'" (blur)="this.updateWorkoutDate('start', $event)">
 </div>

@@ -1,0 +1,5 @@
+<div *ngIf="model">
+  <a *ngIf="previousWorkout" [routerLink]="['/workouts', previousWorkout.id]">Previous Workout ({{this.previousWorkout.index}})</a>
+  Current: {{model.index}}
+  <a *ngIf="nextWorkout" [routerLink]="['/workouts', nextWorkout.id]">Next Workout ({{this.nextWorkout.index}})</a>
+</div>

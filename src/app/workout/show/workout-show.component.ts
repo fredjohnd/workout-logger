@@ -20,12 +20,15 @@ export class WorkoutShowComponent implements OnDestroy {
 
   id: string;
   workout: Workout;
+  // lastWorkout: Workout = null;
 
   showExercisePicker = false;
   showCategoryPicker = false;
   itemPickerData = null;
   itemPickerId: string;
-  modelSubscription: Subscription = null;
+
+  modelSub: Subscription = null;
+  // lastWorkoutSub: Subscription = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +37,7 @@ export class WorkoutShowComponent implements OnDestroy {
     private exerciseService: ExerciseService
     ) {
 
-    this.modelSubscription = this.route.params.subscribe(params => {
+    this.modelSub = this.route.params.subscribe(params => {
       this.model(params);
     });
    }
@@ -48,6 +51,12 @@ export class WorkoutShowComponent implements OnDestroy {
         this.workout = workout;
       }
     });
+
+    // // todo: This fetches the last but in reality we want the next one,
+    // // so we might need to store on Workout model the next and previous links..
+    // this.lastWorkoutSub = this.workoutService.fetchLast().subscribe(workout => {
+    //   this.lastWorkout = workout;
+    // });
 
   }
 
@@ -133,7 +142,7 @@ export class WorkoutShowComponent implements OnDestroy {
 
   ngOnDestroy() {
     console.log('Unsubscribe');
-    this.modelSubscription.unsubscribe();
+    this.modelSub.unsubscribe();
   }
 
 }

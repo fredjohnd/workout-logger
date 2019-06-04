@@ -22,6 +22,7 @@ import { CategoryShowComponent } from './categories/show/category-show.component
 import { WorkoutIndexComponent } from './workout/index/workout-index.component';
 import { WorkoutShowComponent } from './workout/show/workout-show.component';
 import { ItemSelectorComponent } from './components/item-selector/item-selector.component';
+import { WorkoutHeaderNavigationComponent } from './components/workout-header-navigation/workout-header-navigation.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ItemSelectorComponent } from './components/item-selector/item-selector.
     UserProfileComponent,
     WorkoutIndexComponent,
     WorkoutShowComponent,
-    ItemSelectorComponent
+    ItemSelectorComponent,
+    WorkoutHeaderNavigationComponent
   ],
   imports: [
     BrowserModule,

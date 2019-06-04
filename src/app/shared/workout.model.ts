@@ -3,6 +3,7 @@ import { Moment } from 'moment';
 
 export interface Workout {
   id?: string;
+  index?: number;
   start?: Moment;
   finish?: Moment;
   ref?: DocumentReference;

@@ -35,7 +35,7 @@ export class AuthService {
           return of(null);
         }
       })
-    )
+    );
    }
 
    googleLogin() {
