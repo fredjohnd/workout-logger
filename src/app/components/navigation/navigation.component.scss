@@ -1,3 +1,9 @@
+@import "../../shared/scss/variables.scss";
+
 .navbar-logo {
   width: 40px;
+}
+
+.nav-link {
+  font-family: $font-secondary;
 }

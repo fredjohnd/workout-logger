@@ -1,15 +1,30 @@
 <div class="row">
-  <div class="col-md-12 col-lg-4">
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let item of items | async">
+
+    <div *ngFor="let item of items | async" class="col-4 col-md-3 mb-5">
+      <div class="card shadow-sm bg-white rounded">
+          <a [routerLink]="['/categories', item.id]">
+            <img src="assets/images/{{item.image}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h2 class="card-title text-center text-uppercase">{{item.title}}</h2>
+              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              <!-- <button disabled type="button" (click)="deleteCategory(item)" class="btn btn-danger btn-sm btn-delete float-right">Delete</button> -->
+            </div>
+          </a>
+        </div>
+    </div>
+
+    <!-- <ul class="list-group"> -->
+      <!-- <li class="list-group-item" *ngFor="let item of items | async">
         <a [routerLink]="['/categories', item.id]" class="list-item-name">{{item.title}}</a>
         <button type="button" (click)="deleteCategory(item)" class="btn btn-danger btn-sm btn-delete float-right">Delete</button>
-      </li>
-    </ul>
+      </li> -->
+    <!-- </ul> -->
   </div>
 
+  <div class="row">
   <div class="col-md-12 col-lg-4">
     <input [(ngModel)]="categoryName" class="form-input" type="text"/>
     <button (click)="addCategory()" type="button">Create</button>
   </div>
+
 </div>

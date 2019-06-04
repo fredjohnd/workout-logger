@@ -4,4 +4,5 @@ export interface Category {
   ref?: DocumentReference;
   title?: string;
   rank?: number;
+  image?: string;
 }

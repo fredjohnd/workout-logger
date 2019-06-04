@@ -1,4 +1,29 @@
-.wrapper {
-    margin-top: 10px;
-    margin-left: 10px;
+@import "./shared/scss/variables";
+
+html, body {
+  background-color: $bg-color;
+}
+
+body {
+  font-family: $font-primary;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: $font-secondary;
+  color: $header-color;
+  & > a {
+    color: $header-color;
+  }
+}
+
+a, .card-title {
+  color: $link-color;
+  &:hover {
+    color: $link-color-active;
+  }
+}
+
+.card {
+  background-color: $bg-color;
+  border-color: darken($bg-color, 10%);
 }
