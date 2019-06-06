@@ -43,10 +43,7 @@ export class CategoryIndexComponent implements OnInit {
   openModalDeleteCategory(category: Category) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Confirm?',
-        message: `Are you sure you want to delete ${category.title}?`,
-        confirm: 'Yesss',
-        cancel: 'Nooo'
+        message: `Are you sure you want to delete the category "${category.title}"?`,
       }
     });
     dialogRef.afterClosed().subscribe(confirm => {

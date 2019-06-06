@@ -17,6 +17,13 @@ export class ConfirmDialogComponent {
 
   model: string;
 
+  defaults = {
+    title: 'Confirm?',
+    message: `Are you sure?`,
+    confirm: 'Yes',
+    cancel: 'No'
+  };
+
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
