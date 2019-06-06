@@ -48,12 +48,16 @@ export class CategoryShowComponent implements OnDestroy {
       category: this.category.ref.id
     };
 
-    this.exerciseService.add(exercise);
+    this.exerciseService.add(exercise).then((doc)  => {
+      this.categoryService.addExerciseToCategory(this.category, doc.ref.id);
+    });
+
     this.exerciseName = '';
   }
 
   deleteExercise(exercise: Exercise) {
     this.exerciseService.delete(exercise);
+    this.categoryService.removeExerciseFromCategory(this.category, exercise.ref.id);
   }
 
   ngOnDestroy() {

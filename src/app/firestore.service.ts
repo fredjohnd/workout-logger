@@ -71,7 +71,9 @@ export class FirestoreService {
         const id = this.afs.createId();
         const doc = this.afs.doc(`${objectType}/${id}`);
         const serialized = serialize(doc.ref, objectData);
-        doc.set(serialized);
+        return doc.set(serialized).then(() => {
+          return doc;
+        });
       }
 
       saveObject(ref: DocumentReference, objectData: DocumentData) {

@@ -23,7 +23,7 @@ export class ExerciseService {
   }
 
   add(exercise: Exercise) {
-    this.firestore.createObject('exercises', exercise);
+    return this.firestore.createObject('exercises', exercise);
   }
 
   delete(exercise: Exercise) {
