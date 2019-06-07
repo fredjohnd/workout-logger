@@ -21,7 +21,7 @@
           <li>Exercise: {{this.getExerciseNameById(exercise.exercise)}} <button (click)="this.deleteExercise(categoryIndex, exerciseIndex)">Delete</button></li>
 
           <ul *ngFor="let value of exercise.values; let valueIndex = index">
-            <li><input [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)"></li>
+            <li>{{valueIndex}} <input [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)"></li>
           </ul>
 
           <div class="col-md-12 col-lg-4">

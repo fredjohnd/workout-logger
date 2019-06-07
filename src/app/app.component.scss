@@ -34,3 +34,13 @@ a, .card-title {
     outline: none;
   }
 }
+
+.mat-list-item-content {
+  justify-content: space-between;
+}
+
+.list-group-item {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}

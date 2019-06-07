@@ -12,7 +12,9 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatDividerModule } from '@angular/material';
+import {MatListModule} from '@angular/material/list';
+
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -60,7 +62,9 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule,
+    MatDividerModule
   ],
   entryComponents: [
     InputDialogComponent,

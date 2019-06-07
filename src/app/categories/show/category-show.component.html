@@ -1,16 +1,24 @@
 <h2>{{category?.title}}</h2>
 <div class="row">
-  <div class="col-md-12 col-lg-4">
-    <ul class="list-group">
-      <li class="list-group-item"  *ngFor="let item of items | async">
-        <span class="list-item-name">{{item.title}}</span>
-        <button type="button" (click)="deleteExercise(item)" class="btn btn-danger btn-sm btn-delete float-right">Delete</button>
-      </li>
-    </ul>
-  </div>
+  <div class="col-md-6 col-lg-4">
 
-  <div class="col-md-12 col-lg-4">
-    <input [(ngModel)]="exerciseName" class="form-input" type="text"/>
-    <button (click)="addExercise()" type="button">Create</button>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let item of items | async; let i = index">
+        <span>{{item.title}}</span>
+        <div class="ml-2 float-right">
+          <mat-action-list>
+            <button disabled mat-button color="primary" (click)="this.showExerciseEditForm(item)">Edit</button>
+            <button mat-button color="basic" (click)="this.deleteExercise(item)">Delete</button>
+        </mat-action-list>
+      </div>
+    </mat-list-item>
+      </mat-list>
+
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <mat-form-field>
+      <input matInput [(ngModel)]="exerciseName" placeholder="New name">
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="ml-2" (click)="this.addExercise()">Create</button>
   </div>
 </div>

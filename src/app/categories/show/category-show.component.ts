@@ -1,3 +1,4 @@
+import { ConfirmDialogComponent } from './../../components/confirm-dialog/confirm-dialog.component';
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -7,6 +8,7 @@ import { Exercise } from '../../shared/exercise.model';
 
 import { CategoryService } from '../../shared/category.service';
 import { ExerciseService } from '../../shared/exercise.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-category-show',
@@ -21,7 +23,11 @@ export class CategoryShowComponent implements OnDestroy {
   category: Category;
   modelSubscription: Subscription = null;
 
-  constructor(private route: ActivatedRoute, private categoryService: CategoryService, private exerciseService: ExerciseService) {
+  constructor(
+    private route: ActivatedRoute,
+    private categoryService: CategoryService,
+    private exerciseService: ExerciseService,
+    public dialog: MatDialog) {
 
     this.route.params.subscribe(params => {
       this.model(params);
@@ -42,6 +48,10 @@ export class CategoryShowComponent implements OnDestroy {
   }
 
   addExercise() {
+    if (!this.exerciseName) {
+      return;
+    }
+
     const exercise: Exercise = {
       title: this.exerciseName,
       rank: 0,
@@ -55,9 +65,23 @@ export class CategoryShowComponent implements OnDestroy {
     this.exerciseName = '';
   }
 
+  showExerciseEditForm(exercise) {
+
+  }
+
   deleteExercise(exercise: Exercise) {
-    this.exerciseService.delete(exercise);
-    this.categoryService.removeExerciseFromCategory(this.category, exercise.ref.id);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: 'Are you sure you want to delete this exercise?',
+      }
+    });
+    dialogRef.afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.exerciseService.delete(exercise);
+        this.categoryService.removeExerciseFromCategory(this.category, exercise.ref.id);
+      }
+    });
+
   }
 
   ngOnDestroy() {
