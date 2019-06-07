@@ -5,6 +5,7 @@
   </app-workout-header-navigation>
 
   <h2>{{workout.start | amDateFormat:'ddd DD MMMM YYYY HH:mm:ss'}}</h2>
+  <button (click)="this.deleteWorkout(item)">Delete</button>
   <input [value]="workout.start | amDateFormat: 'YYYY-MM-DD HH:mm'" (blur)="this.updateWorkoutDate('start', $event)">
 </div>
 

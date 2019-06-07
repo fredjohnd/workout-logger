@@ -33,8 +33,8 @@ export class WorkoutIndexComponent {
     this.workoutService.add();
   }
 
-  deleteWorkout(workout: Workout) {
-    this.workoutService.delete(workout);
-  }
+  // deleteWorkout(workout: Workout) {
+  //   this.workoutService.delete(workout);
+  // }
 
 }

@@ -1,15 +1,17 @@
+import { MatDialog } from '@angular/material';
 import { Category } from './../../shared/category.model';
 import { WorkoutExercise, WorkoutPlanCategory } from './../../shared/workout.model';
 import { CategoryService } from './../../shared/category.service';
 import { WorkoutService } from './../../shared/workout.service';
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Workout } from 'src/app/shared/workout.model';
 import { ExerciseService } from 'src/app/shared/exercise.service';
 import { Exercise } from 'src/app/shared/exercise.model';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-workout-show',
@@ -32,9 +34,11 @@ export class WorkoutShowComponent implements OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private workoutService: WorkoutService,
     private categoryService: CategoryService,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    public dialog: MatDialog
     ) {
 
     this.modelSub = this.route.params.subscribe(params => {
@@ -138,6 +142,20 @@ export class WorkoutShowComponent implements OnDestroy {
 
   saveWorkout() {
     this.workoutService.save(this.workout);
+  }
+
+  deleteWorkout() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Are you sure you want to delete this workout"?`,
+      }
+    });
+    dialogRef.afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.workoutService.delete(this.workout);
+        this.router.navigate(['/workouts']);
+      }
+    });
   }
 
   ngOnDestroy() {

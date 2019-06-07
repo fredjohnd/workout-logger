@@ -19,7 +19,7 @@
     </a>
       <mat-card-actions class="text-right">
         <button mat-button [routerLink]="['/categories', item.id]">Edit</button>
-        <button mat-button (click)="this.openModalDeleteCategory(item)">Delete</button>
+        <button mat-button (click)="this.deleteCategory(item)">Delete</button>
       </mat-card-actions>
     </mat-card>
 </div>

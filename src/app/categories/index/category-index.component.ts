@@ -14,11 +14,9 @@ import { MatDialog } from '@angular/material';
   templateUrl: './category-index.component.html',
   styleUrls: ['./category-index.component.scss']
 })
-export class CategoryIndexComponent implements OnInit {
+export class CategoryIndexComponent {
 
   items: Observable<any>;
-
-  // categoryName: string;
 
   constructor(private categoryService: CategoryService, public dialog: MatDialog) {
     this.items = this.categoryService.fetchAll('rank');
@@ -26,9 +24,6 @@ export class CategoryIndexComponent implements OnInit {
     this.items.subscribe(items => {
       console.log(items);
     });
-  }
-
-  ngOnInit() {
   }
 
   openModalAddCategory() {
@@ -40,7 +35,7 @@ export class CategoryIndexComponent implements OnInit {
     });
   }
 
-  openModalDeleteCategory(category: Category) {
+  deleteCategory(category: Category) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         message: `Are you sure you want to delete the category "${category.title}"?`,
@@ -48,13 +43,9 @@ export class CategoryIndexComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm) {
-        this.deleteCategory(category);
+        this.categoryService.delete(category);
       }
     });
-  }
-
-  deleteCategory(category: Category) {
-    this.categoryService.delete(category);
   }
 
   addCategory(categoryName: string) {
