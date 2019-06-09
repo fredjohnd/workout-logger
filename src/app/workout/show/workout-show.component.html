@@ -5,35 +5,54 @@
   class="text-center"
   (startTimeUpdate)="this.updateWorkoutDate('start')"
   >
-  </app-workout-header-navigation>
+</app-workout-header-navigation>
 
-  <button (click)="this.deleteWorkout()">Delete</button>
+<!-- <button (click)="this.deleteWorkout()">Delete Workout</button> -->
 
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <div *ngIf="workout?.plan">
+  <div *ngIf="workout?.plan" class="col-12 col-md-6">
 
-      <ul *ngFor="let category of workout.plan; let categoryIndex = index">
+    <div class="category-entry mb-2" *ngFor="let category of workout.plan; let categoryIndex = index">
 
-        <li>Category: {{this.getCategoryNameById(category.category)}} <button (click)="this.deleteCategory(categoryIndex)">Delete</button></li>
+      <h2>{{this.getCategoryNameById(category.category)}}
+        <!-- <button mat-button (click)="this.deleteCategory(categoryIndex)">Delete</button> -->
+      </h2>
 
-        <ul *ngFor="let exercise of category.exercises; let exerciseIndex = index">
+      <ul class="exercise-list">
 
-          <li>Exercise: {{this.getExerciseNameById(exercise.exercise)}} <button (click)="this.deleteExercise(categoryIndex, exerciseIndex)">Delete</button></li>
+        <li class="exercise-entry" *ngFor="let exercise of category.exercises; let exerciseIndex = index">
 
-          <ul *ngFor="let value of exercise.values; let valueIndex = index">
-            <li>{{valueIndex}} <input [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)"></li>
-          </ul>
+          <div class="row">
 
-          <div class="col-md-12 col-lg-4">
-            <button (click)="this.addExerciseValue(exercise)" type="button">Add Value</button>
+              <div class="col-4">
+                <!-- <button (click)="this.deleteExercise(categoryIndex, exerciseIndex)">Delete</button> -->
+                <span>{{this.getExerciseNameById(exercise.exercise)}}</span>
+              </div>
+
+              <div class="col-8">
+                <div class="row">
+                  <div class="col-10">
+                    <input *ngFor="let value of exercise.values; let valueIndex = index" class="mr-2" [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)">
+                  </div>
+                  <div class="col-2">
+                    <button (click)="this.addExerciseValue(exercise)" type="button">+</button>
+                  </div>
+                </div>
+              </div>
+
           </div>
+          <!-- /row -->
 
+          </li>
         </ul>
-        <button (click)="this.onShowExercisePicker(category)">Add Exercise</button>
-      </ul>
+      <button (click)="this.onShowExercisePicker(category)">Add Exercise</button>
+
+    </div>
+    <!-- End Category -->
+
+    <div>
       <button (click)="this.onShowCategoryPicker()">Add Category</button>
       <p><button (click)="this.onCloseItemPicker()">Close</button></p>
 
@@ -42,21 +61,20 @@
       </p>
 
       <p><button (click)="this.saveWorkout()">Save Workout</button></p>
-      </div>
+    </div>
+
+    <div class="col-12 col-md-6" *ngIf="showExercisePicker">
+      <app-item-selector
+      [items]="itemPickerData"
+      (itemSelected)="this.addExerciseToCategory($event)">
+    </app-item-selector>
   </div>
 
-  <div class="col-md-6" *ngIf="showExercisePicker">
-    <app-item-selector
-    [items]="itemPickerData"
-    (itemSelected)="this.addExerciseToCategory($event)">
-  </app-item-selector>
-  </div>
-
-  <div class="col-md-6" *ngIf="showCategoryPicker">
+  <div class="col-12 col-md-6" *ngIf="showCategoryPicker">
     <app-item-selector
     [items]="itemPickerData"
     (itemSelected)="this.addCategoryToPlan($event)">
   </app-item-selector>
-  </div>
+</div>
 
 </div>

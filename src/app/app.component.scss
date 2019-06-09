@@ -44,3 +44,7 @@ a, .card-title {
   display: flex;
   justify-content: space-between;
 }
+
+.list-group-horizontal {
+  flex-direction: row;
+}
