@@ -16,65 +16,61 @@
 
     <div class="category-entry mb-2" *ngFor="let category of workout.plan; let categoryIndex = index">
 
-      <h2>{{this.getCategoryNameById(category.category)}}
-        <!-- <button mat-button (click)="this.deleteCategory(categoryIndex)">Delete</button> -->
-      </h2>
+      <h5 class="ml-2 mt-2 d-flex">
+        <span class="d-flex align-items-center mr-2">{{this.getCategoryNameById(category.category)}}</span>
+        <button [disabled]="category.exercises.length > 0" mat-icon-button (click)="this.deleteCategory(categoryIndex)">
+            <mat-icon svgIcon="delete" aria-label="Delete Exercise">delete</mat-icon>
+          </button>
 
-      <ul class="exercise-list">
+      </h5>
 
-        <li class="exercise-entry" *ngFor="let exercise of category.exercises; let exerciseIndex = index">
+      <ul class="exercise-list pl-0">
+
+        <li class="exercise-entry mb-2" *ngFor="let exercise of category.exercises; let exerciseIndex = index">
 
           <div class="row">
 
-              <div class="col-4">
-                <!-- <button (click)="this.deleteExercise(categoryIndex, exerciseIndex)">Delete</button> -->
-                <span>{{this.getExerciseNameById(exercise.exercise)}}</span>
-              </div>
+            <div class="col-4">
+              <button mat-icon-button (click)="this.deleteExercise(categoryIndex, exerciseIndex)">
+                <mat-icon svgIcon="delete" aria-label="Delete Exercise">delete</mat-icon>
+              </button>
+              <span>{{this.getExerciseNameById(exercise.exercise)}}</span>
+            </div>
 
-              <div class="col-8">
-                <div class="row">
-                  <div class="col-10">
-                    <input *ngFor="let value of exercise.values; let valueIndex = index" class="mr-2" [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)">
-                  </div>
-                  <div class="col-2">
-                    <button (click)="this.addExerciseValue(exercise)" type="button">+</button>
+            <div class="col-8">
+              <div class="row">
+                <div class="col-10">
+                  <div class="row">
+                    <mat-form-field class="col-3" *ngFor="let value of exercise.values; let valueIndex = index">
+                      <input matInput class="mr-2" [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)">
+                    </mat-form-field>
                   </div>
                 </div>
+                <div class="col-2">
+                  <button mat-mini-fab color="basic" (click)="this.addExerciseValue(exercise)" type="button">+</button>
+                </div>
               </div>
+            </div>
 
           </div>
           <!-- /row -->
 
-          </li>
-        </ul>
-      <button (click)="this.onShowExercisePicker(category)">Add Exercise</button>
+        </li>
+      </ul>
+      <button mat-raised-button color="primary" (click)="this.onShowExercisePicker(category)" class="ml-2 mb-2">Add Exercise</button>
 
     </div>
     <!-- End Category -->
 
     <div>
-      <button (click)="this.onShowCategoryPicker()">Add Category</button>
-      <p><button (click)="this.onCloseItemPicker()">Close</button></p>
+      <p><button mat-raised-button (click)="this.onShowCategoryPicker()">Add Category</button></p>
+      <p><button mat-raised-button (click)="this.onCloseItemPicker()">Close</button></p>
 
       <p>Finish workout time:
         <input [value]="workout.finish | amDateFormat: 'YYYY-MM-DD HH:mm'" (blur)="this.updateWorkoutDate('finish', $event)">
       </p>
 
-      <p><button (click)="this.saveWorkout()">Save Workout</button></p>
+      <p><button mat-raised-button (click)="this.saveWorkout()">Save Workout</button></p>
     </div>
 
-    <div class="col-12 col-md-6" *ngIf="showExercisePicker">
-      <app-item-selector
-      [items]="itemPickerData"
-      (itemSelected)="this.addExerciseToCategory($event)">
-    </app-item-selector>
   </div>
-
-  <div class="col-12 col-md-6" *ngIf="showCategoryPicker">
-    <app-item-selector
-    [items]="itemPickerData"
-    (itemSelected)="this.addCategoryToPlan($event)">
-  </app-item-selector>
-</div>
-
-</div>

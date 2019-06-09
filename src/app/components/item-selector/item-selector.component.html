@@ -1,4 +1,14 @@
-<h2>Items:</h2>
-<ul *ngIf="items">
-  <li *ngFor="let item of items">{{item.title}} <button (click)="this.onItemSelect(item)">Add</button></li>
-</ul>
+<h1 mat-dialog-title>{{data.title || defaults.title}}</h1>
+
+<div mat-dialog-content>
+  <mat-selection-list #selectedItems>
+    <mat-list-option [value]="item" *ngFor="let item of data.model">
+      {{item.title}}
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+
+<div mat-dialog-actions>
+  <button cdkFocusInitial mat-button (click)="cancel()">{{data.cancel || defaults.cancel}}</button>
+  <button mat-raised-button color="primary" [disabled]="!selectedItems.selectedOptions.selected.length" [mat-dialog-close]="selectedItems.selectedOptions.selected">{{data.confirm || defaults.confirm}}</button>
+</div>

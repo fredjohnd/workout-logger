@@ -26,6 +26,12 @@ export class AppComponent {
 
       iconRegistry.addSvgIcon('time',
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/time.svg'));
+
+      iconRegistry.addSvgIcon('delete',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/delete.svg'));
+
+      iconRegistry.addSvgIcon('list-add',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/list_add.svg'));
     }
 
   }

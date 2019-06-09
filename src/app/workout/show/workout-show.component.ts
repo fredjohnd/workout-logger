@@ -1,5 +1,6 @@
+import { ItemSelectorComponent } from './../../components/item-selector/item-selector.component';
 import { InputDialogComponent } from './../../components/input-dialog/input-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatListOption } from '@angular/material';
 import { Category } from './../../shared/category.model';
 import { WorkoutExercise, WorkoutPlanCategory } from './../../shared/workout.model';
 import { CategoryService } from './../../shared/category.service';
@@ -24,11 +25,6 @@ export class WorkoutShowComponent implements OnDestroy {
   id: string;
   workout: Workout;
   // lastWorkout: Workout = null;
-
-  showExercisePicker = false;
-  showCategoryPicker = false;
-  itemPickerData = null;
-  itemPickerId: string;
 
   modelSub: Subscription = null;
   // lastWorkoutSub: Subscription = null;
@@ -57,12 +53,6 @@ export class WorkoutShowComponent implements OnDestroy {
       }
     });
 
-    // // todo: This fetches the last but in reality we want the next one,
-    // // so we might need to store on Workout model the next and previous links..
-    // this.lastWorkoutSub = this.workoutService.fetchLast().subscribe(workout => {
-    //   this.lastWorkout = workout;
-    // });
-
   }
 
   getCategoryNameById(categoryId: string): string {
@@ -74,46 +64,65 @@ export class WorkoutShowComponent implements OnDestroy {
   }
 
   onShowExercisePicker(category: WorkoutPlanCategory) {
-    this.showExercisePicker = true;
-    this.itemPickerData = this.exerciseService.getExercisesForCategory(category.category);
-    this.itemPickerId = category.category;
+
+    const model = this.exerciseService.getExercisesForCategory(category.category);
+    const dialogRef = this.dialog.open(ItemSelectorComponent, {
+      data: {
+        title: 'Select an exercise',
+        model: model
+      },
+      minWidth: 400
+    });
+
+    dialogRef.afterClosed().subscribe((items: MatListOption[]) => {
+      const exercises = items.map(item => item.value);
+      this.addExercisesToCategory(category, exercises);
+    });
   }
 
   onShowCategoryPicker() {
-    this.showCategoryPicker = true;
-    this.itemPickerData = this.categoryService.categories;
+    const dialogRef = this.dialog.open(ItemSelectorComponent, {
+      data: {
+        title: 'Select a category',
+        model: this.categoryService.categories
+      },
+      minWidth: 400
+    });
+
+    dialogRef.afterClosed().subscribe((items: MatListOption[]) => {
+      const categories = items.map(item => item.value);
+      this.addCategoriesToPlan(categories);
+    });
   }
 
-  onCloseItemPicker() {
-    this.showExercisePicker = false;
-    this.showCategoryPicker = false;
-    this.itemPickerData = null;
-    this.itemPickerId = null;
+  addCategoriesToPlan(categories: Category[]) {
+    categories.forEach(category => {
+      const workoutCategory: WorkoutPlanCategory = {
+        category: category.ref.id,
+        exercises: []};
+
+      this.workout.plan.push(workoutCategory);
+      });
+
+  }
+
+  addExercisesToCategory(category: WorkoutPlanCategory, items: Exercise[]) {
+
+    items.forEach(item => {
+
+      const exercise: WorkoutExercise = {
+        exercise: item.ref.id,
+        values: []
+      };
+      category.exercises.push(exercise);
+    });
+
+    // this.saveWorkout();
   }
 
   onEndWorkout() {
     this.workout.finish = moment().startOf('m');
     // this.saveWorkout();
-  }
-
-  addCategoryToPlan(category: Category) {
-    const workoutCategory: WorkoutPlanCategory = {
-      category: category.ref.id,
-      exercises: []};
-
-    this.workout.plan.push(workoutCategory);
-    this.onCloseItemPicker();
-  }
-
-  addExerciseToCategory(item: Exercise) {
-    const categoryIndex = this.workout.plan.findIndex(cat => cat.category === this.itemPickerId);
-    const exercise: WorkoutExercise = {
-      exercise: item.ref.id,
-      values: []
-    };
-    this.workout.plan[categoryIndex].exercises.push(exercise);
-    // this.saveWorkout();
-    this.onCloseItemPicker();
   }
 
   deleteExercise(categoryIndex: number, exerciseIndex: number) {

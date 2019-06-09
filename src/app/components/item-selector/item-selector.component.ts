@@ -1,5 +1,9 @@
-import { Component, Input, Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { Component, Inject, Output, EventEmitter } from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
+export interface DialogData {
+  model: any;
+}
 
 @Component({
   selector: 'app-item-selector',
@@ -8,12 +12,17 @@ import { EventEmitter } from '@angular/core';
 })
 export class ItemSelectorComponent {
 
-  @Input() items: any[];
-  @Output() itemSelected = new EventEmitter();
+  defaults = {
+    title: 'Please select an item',
+    confirm: 'Add',
+    cancel: 'Cancel'
+  };
 
+  constructor(public dialogRef: MatDialogRef<ItemSelectorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-  onItemSelect(item: any) {
-    this.itemSelected.emit(item);
+    cancel() {
+      this.dialogRef.close();
+    }
+
   }
-
-}

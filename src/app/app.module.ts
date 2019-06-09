@@ -71,7 +71,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   entryComponents: [
     InputDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ItemSelectorComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
