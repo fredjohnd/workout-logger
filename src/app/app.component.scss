@@ -1,5 +1,8 @@
 @import "./shared/scss/variables";
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+@include mat-core();
+$primary: mat-palette($mat-indigo);
 
 html, body {
   background-color: $bg-color;
@@ -17,6 +20,7 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+// Various overridings of Bootstrap and Material styles
 a, .card-title {
   color: $link-color;
   &:hover {
@@ -47,4 +51,22 @@ a, .card-title {
 
 .list-group-horizontal {
   flex-direction: row;
+}
+
+.mat-accordion {
+
+  .mat-expansion-panel-header,
+  .mat-expansion-panel:not(.mat-expanded),
+  .mat-expansion-panel:not(.mat-expanded):hover,
+  .mat-expansion-panel-header.mat-expanded:hover,
+  .mat-expansion-panel-header.mat-expanded:focus {
+    background: mat-color($primary);
+    color: #fff;
+  }
+}
+
+.mat-expansion-panel-header {
+  .mat-expansion-indicator::after, .mat-expansion-panel-header-description {
+    color: #fff;
+  }
 }

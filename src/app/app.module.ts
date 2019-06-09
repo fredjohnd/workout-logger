@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatInputModule, MatDividerModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatDividerModule, MatIconModule, MatExpansionModule } from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 
 import {MatCardModule} from '@angular/material/card';
@@ -67,6 +67,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatListModule,
     MatDividerModule,
     MatIconModule,
+    MatExpansionModule,
     HttpClientModule
   ],
   entryComponents: [
