@@ -1,11 +1,11 @@
-<h1 mat-dialog-title>Add Category</h1>
+<h1 mat-dialog-title>{{data.title || defaults.title}}</h1>
 <div mat-dialog-content>
-  <p>Enter a new name</p>
+  <p>{{data.message || defaults.message}}</p>
   <mat-form-field>
-    <input required matInput [(ngModel)]="model">
+    <input required cdkFocusInitial matInput [(ngModel)]="data.model">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-button [disabled]="!model" [mat-dialog-close]="model" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="cancel()">{{data.cancel || defaults.cancel}}</button>
+  <button mat-button [disabled]="!data.model" [mat-dialog-close]="data.model">{{data.confirm || defaults.confirm}}</button>
 </div>

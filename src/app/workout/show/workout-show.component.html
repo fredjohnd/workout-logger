@@ -1,12 +1,14 @@
 
 <div *ngIf="workout">
   <app-workout-header-navigation
-  [model]="workout">
+  [model]="workout"
+  class="text-center"
+  (startTimeUpdate)="this.updateWorkoutDate('start')"
+  >
   </app-workout-header-navigation>
 
-  <h2>{{workout.start | amDateFormat:'ddd DD MMMM YYYY HH:mm:ss'}}</h2>
-  <button (click)="this.deleteWorkout(item)">Delete</button>
-  <input [value]="workout.start | amDateFormat: 'YYYY-MM-DD HH:mm'" (blur)="this.updateWorkoutDate('start', $event)">
+  <button (click)="this.deleteWorkout()">Delete</button>
+
 </div>
 
 <div class="row">

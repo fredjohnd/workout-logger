@@ -1,7 +1,8 @@
 import { take } from 'rxjs/operators';
 import { WorkoutService } from './../../shared/workout.service';
 import { Workout } from 'src/app/shared/workout.model';
-import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-workout-header-navigation',
@@ -11,10 +12,10 @@ import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from
 export class WorkoutHeaderNavigationComponent implements OnInit, OnChanges {
 
   @Input() model: Workout;
-
+  @Output() startTimeUpdate = new EventEmitter();
   previousWorkout: Workout = null;
   nextWorkout: Workout = null;
-  constructor(private workoutService: WorkoutService) { }
+  constructor(private workoutService: WorkoutService) {}
 
   ngOnInit() {
   }
@@ -43,6 +44,10 @@ export class WorkoutHeaderNavigationComponent implements OnInit, OnChanges {
         });
       }
     }
+  }
+
+  changeStartTime() {
+    this.startTimeUpdate.emit(null);
   }
 
 }

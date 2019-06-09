@@ -6,5 +6,7 @@ export function serialize(data: Category) {
 }
 
 export function normalize(doc: DocumentSnapshot<any>): Category {
-  return doc.data() as Category;
+  const data = doc.data();
+  data.exercises = data.exercises || [];
+  return data as Category;
 }

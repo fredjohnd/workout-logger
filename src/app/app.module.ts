@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatInputModule, MatDividerModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatDividerModule, MatIconModule } from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 
 import {MatCardModule} from '@angular/material/card';
@@ -33,6 +33,7 @@ import { ItemSelectorComponent } from './components/item-selector/item-selector.
 import { WorkoutHeaderNavigationComponent } from './components/workout-header-navigation/workout-header-navigation.component';
 import { InputDialogComponent } from './components/input-dialog/input-dialog.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,9 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule,
+    HttpClientModule
   ],
   entryComponents: [
     InputDialogComponent,

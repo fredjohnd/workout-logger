@@ -27,7 +27,12 @@ export class CategoryIndexComponent {
   }
 
   openModalAddCategory() {
-    const dialogRef = this.dialog.open(InputDialogComponent);
+    const dialogRef = this.dialog.open(InputDialogComponent, {
+      data: {
+        title: 'New category',
+        message: 'New name'
+      }
+    });
     dialogRef.afterClosed().subscribe(categoryName => {
       if (categoryName) {
         this.addCategory(categoryName);

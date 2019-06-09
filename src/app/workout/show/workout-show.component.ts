@@ -1,3 +1,4 @@
+import { InputDialogComponent } from './../../components/input-dialog/input-dialog.component';
 import { MatDialog } from '@angular/material';
 import { Category } from './../../shared/category.model';
 import { WorkoutExercise, WorkoutPlanCategory } from './../../shared/workout.model';
@@ -136,8 +137,24 @@ export class WorkoutShowComponent implements OnDestroy {
   }
 
   updateWorkoutDate(datePropertyName: string, event: Event) {
-    const value = (<HTMLInputElement>event.target).value;
-    this.workout[datePropertyName] = value;
+    const date = this.workout[datePropertyName] || moment();
+    const model = moment(date).format('HH:mm');
+    const dialogRef = this.dialog.open(InputDialogComponent, {
+      data: {
+        title: 'Input new time',
+        message: 'Start time',
+        model: model,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(value => {
+
+      if (value) {
+        const [hours, minutes] = value.split(':');
+        const dateValue = date.clone().hour(hours).minute(minutes);
+        this.workout[datePropertyName] = dateValue;
+      }
+    });
   }
 
   saveWorkout() {

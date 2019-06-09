@@ -8,3 +8,11 @@ $link-color: #7d7e80;
 $link-color-active: $header-color;
 $font-primary: 'Roboto', sans-serif;
 $font-secondary: 'Open Sans', sans-serif;
+
+.font-primary {
+  font-family: $font-primary;
+}
+
+.font-secondary {
+  font-family: $font-secondary;
+}

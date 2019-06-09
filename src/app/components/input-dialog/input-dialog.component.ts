@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject } from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
+export interface DialogData {
+  title: string;
+  message: string;
+  confirm: string;
+  reject: string;
+}
 
 @Component({
   selector: 'app-input-dialog',
@@ -8,9 +15,16 @@ import { MatDialogRef } from '@angular/material';
 })
 export class InputDialogComponent {
 
-  model: string;
+  defaults = {
+    title: 'Please enter a value',
+    message: `Enter a value`,
+    confirm: 'OK',
+    cancel: 'Cancel',
+    model: ''
+  };
 
-  constructor(public dialogRef: MatDialogRef<InputDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<InputDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   cancel() {
     this.dialogRef.close();
