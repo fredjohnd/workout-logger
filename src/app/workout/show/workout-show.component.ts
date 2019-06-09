@@ -75,8 +75,10 @@ export class WorkoutShowComponent implements OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((items: MatListOption[]) => {
-      const exercises = items.map(item => item.value);
-      this.addExercisesToCategory(category, exercises);
+      if (items) {
+        const exercises = items.map(item => item.value);
+        this.addExercisesToCategory(category, exercises);
+      }
     });
   }
 
@@ -90,8 +92,10 @@ export class WorkoutShowComponent implements OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((items: MatListOption[]) => {
-      const categories = items.map(item => item.value);
-      this.addCategoriesToPlan(categories);
+      if (items) {
+        const categories = items.map(item => item.value);
+        this.addCategoriesToPlan(categories);
+      }
     });
   }
 
@@ -182,6 +186,14 @@ export class WorkoutShowComponent implements OnDestroy {
         this.router.navigate(['/workouts']);
       }
     });
+  }
+
+  indexTracker(index: number, value: any) {
+    return index;
+  }
+
+  exerciseTracker(index: number, value: any) {
+    return `${value.exercise}-${index}`;
   }
 
   ngOnDestroy() {

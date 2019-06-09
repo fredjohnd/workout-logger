@@ -1,3 +1,7 @@
+@import '~@angular/material/theming';
+@import '../../shared/scss/variables.scss';
+@include mat-core();
+$primary: mat-palette($mat-indigo);
 ul {
   list-style: none;
 }
@@ -7,5 +11,14 @@ input {
 }
 
 .category-entry {
-  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.category-header {
+  // background: $header-bg-color;
+  background: mat-color($primary);
+  color: #fff;
+}
+.exercise-title {
+  color: $header-color;
 }

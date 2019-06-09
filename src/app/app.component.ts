@@ -32,6 +32,12 @@ export class AppComponent {
 
       iconRegistry.addSvgIcon('list-add',
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/list_add.svg'));
+
+      iconRegistry.addSvgIcon('minimize',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/minimize.svg'));
+
+      iconRegistry.addSvgIcon('maximize',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/maximize.svg'));
     }
 
   }
