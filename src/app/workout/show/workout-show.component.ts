@@ -14,6 +14,7 @@ import { Exercise } from 'src/app/shared/exercise.model';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { NotificationService } from 'src/app/shared/notification.service';
 
 @Component({
   selector: 'app-workout-show',
@@ -35,7 +36,8 @@ export class WorkoutShowComponent implements OnDestroy {
     private workoutService: WorkoutService,
     private categoryService: CategoryService,
     private exerciseService: ExerciseService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public notificationService: NotificationService
     ) {
 
     this.modelSub = this.route.params.subscribe(params => {
@@ -155,23 +157,44 @@ export class WorkoutShowComponent implements OnDestroy {
     const dialogRef = this.dialog.open(InputDialogComponent, {
       data: {
         title: 'Input new time',
-        message: 'Start time',
         model: model,
       }
     });
 
-    dialogRef.afterClosed().subscribe(value => {
+    return dialogRef.afterClosed();
+  }
+
+  updateWorkoutStartDate(event: Event) {
+    const date = this.workout['start'] || moment();
+    this.updateWorkoutDate('start', event).subscribe(value => {
 
       if (value) {
         const [hours, minutes] = value.split(':');
         const dateValue = date.clone().hour(hours).minute(minutes);
-        this.workout[datePropertyName] = dateValue;
+        this.workout['start'] = dateValue;
       }
     });
   }
 
+  updateWorkoutEndDate(event: Event) {
+    const date = this.workout['finish'] || moment();
+    this.updateWorkoutDate('finish', event).subscribe(value => {
+
+      if (value) {
+        const [hours, minutes] = value.split(':');
+        const dateValue = date.clone().hour(hours).minute(minutes);
+        this.workout['finish'] = dateValue;
+      }
+    });
+  }
+
+  finishWorkout(event: Event) {
+    this.updateWorkoutEndDate(event);
+  }
+
   saveWorkout() {
     this.workoutService.save(this.workout);
+    this.notificationService.show('Workout saved!', ':)');
   }
 
   deleteWorkout() {

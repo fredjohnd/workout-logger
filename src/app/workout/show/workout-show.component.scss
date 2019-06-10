@@ -8,6 +8,11 @@ input {
   width: 100px;
 }
 
+.workout-wrapper {
+  margin-bottom: 60px;
+  overflow-y: hidden;
+}
+
 .category-entry {
   overflow: hidden;
 }
@@ -21,4 +26,10 @@ input {
 
 .mat-expansion-panel-body {
   background: #fff;
+}
+
+
+footer {
+  position: fixed;
+  bottom: 0;
 }

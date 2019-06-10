@@ -38,6 +38,13 @@ export class AppComponent {
 
       iconRegistry.addSvgIcon('maximize',
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/maximize.svg'));
+
+      iconRegistry.addSvgIcon('save',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/save.svg'));
+
+      iconRegistry.addSvgIcon('timer-off',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/timer_off.svg'));
+
     }
 
   }

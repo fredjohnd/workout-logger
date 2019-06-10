@@ -3,7 +3,7 @@
   <app-workout-header-navigation
   [model]="workout"
   class="text-center"
-  (startTimeUpdate)="this.updateWorkoutDate('start')"
+  (startTimeUpdate)="this.updateWorkoutStartDate()"
   >
 </app-workout-header-navigation>
 
@@ -12,7 +12,7 @@
 </div>
 
 <div class="row">
-  <div *ngIf="workout?.plan" class="col-12 col-md-6">
+  <div *ngIf="workout?.plan" class="col-12 workout-wrapper">
 
     <div class="category-entry mb-2 shadow bg-white rounded" *ngFor="let category of workout.plan; let categoryIndex = index">
 
@@ -75,14 +75,31 @@
 
     <!-- End Category -->
 
-    <div>
-      <p><button mat-raised-button (click)="this.onShowCategoryPicker()">Add Category</button></p>
 
-      <p>Finish workout time:
-        <input [value]="workout.finish | amDateFormat: 'YYYY-MM-DD HH:mm'" (blur)="this.updateWorkoutDate('finish', $event)">
-      </p>
+    <footer class="col-12">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+              <div class="d-flex">
+                <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.finishWorkout()">
+                  <span>
+                    <mat-icon svgIcon="timer-off" aria-label="Finish workout">finish workout</mat-icon>
+                    <span>Set finish time</span>
+                  </span>
+                </button>
+                <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.saveWorkout()">
+                  <span>
+                  <mat-icon svgIcon="save" aria-label="Save Workout">save</mat-icon>
+                  <span>Save Workout</span>
+                </span>
+                </button>
+              </div>
+            </mat-toolbar-row>
+          </mat-toolbar>
 
-      <p><button mat-raised-button (click)="this.saveWorkout()">Save Workout</button></p>
-    </div>
+      <!-- <button class="mr-2" mat-raised-button (click)="this.onShowCategoryPicker()">Add Category</button>
+      <button class="mr-2" mat-raised-button (click)="this.finishWorkout()">Finish workout</button>
+      <button mat-raised-button (click)="this.saveWorkout()">Save Workout</button> -->
+
+      </footer>
 
   </div>
