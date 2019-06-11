@@ -12,7 +12,7 @@
 </div>
 
 <div class="row">
-  <div *ngIf="workout?.plan" class="col-12 workout-wrapper">
+  <div *ngIf="workout?.plan.length > 0" class="col-12 workout-wrapper">
 
     <div class="category-entry mb-2 shadow bg-white rounded" *ngFor="let category of workout.plan; let categoryIndex = index">
 
@@ -30,7 +30,7 @@
               </div>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <ul class="exercise-list pl-0 mt-2">
+            <ul class="exercise-list pl-0 ml-0 mt-2">
 
                 <li class="exercise-entry mb-2" *ngFor="let exercise of category.exercises; let exerciseIndex = index; trackBy:indexTracker">
 
@@ -47,7 +47,7 @@
                       <div class="row d-flex align-items-baseline">
                         <div class="col-10">
                           <div class="row">
-                            <mat-form-field class="col-3" *ngFor="let value of exercise.values; let valueIndex = index; trackBy:exerciseTracker">
+                            <mat-form-field class="col-6 col-md-4 col-lg-3" *ngFor="let value of exercise.values; let valueIndex = index; trackBy:exerciseTracker">
                               <input matInput class="mr-2" [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)">
                             </mat-form-field>
                           </div>
@@ -74,16 +74,18 @@
     </div>
 
     <!-- End Category -->
+    <div class="workout-actions ml-3 mt-3">
+      <button class="mr-2" mat-raised-button (click)="this.onShowCategoryPicker()">Add Category</button>
+    </div>
 
-
-    <footer class="col-12">
+    <footer class="col-12 pl-0 pr-0">
         <mat-toolbar color="primary">
             <mat-toolbar-row>
               <div class="d-flex">
                 <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.finishWorkout()">
                   <span>
                     <mat-icon svgIcon="timer-off" aria-label="Finish workout">finish workout</mat-icon>
-                    <span>Set finish time</span>
+                    <span>Finish workout</span>
                   </span>
                 </button>
                 <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.saveWorkout()">
@@ -96,8 +98,7 @@
             </mat-toolbar-row>
           </mat-toolbar>
 
-      <!-- <button class="mr-2" mat-raised-button (click)="this.onShowCategoryPicker()">Add Category</button>
-      <button class="mr-2" mat-raised-button (click)="this.finishWorkout()">Finish workout</button>
+      <!-- <button class="mr-2" mat-raised-button (click)="this.finishWorkout()">Finish workout</button>
       <button mat-raised-button (click)="this.saveWorkout()">Save Workout</button> -->
 
       </footer>

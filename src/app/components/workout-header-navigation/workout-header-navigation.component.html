@@ -22,6 +22,9 @@
           <button (click)="this.changeStartTime()" mat-icon-button>
             <mat-icon svgIcon="time" aria-label="time">time</mat-icon>
           </button>
+          <ng-container *ngIf="this.model.finish">
+             - {{this.model.finish | amDateFormat: 'HH:mm'}}
+          </ng-container>
         </h4>
       </div>
     </div>
