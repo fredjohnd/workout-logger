@@ -3,7 +3,7 @@
   <div class="col-md-12 col-lg-4">
     <ul class="list-group">
       <li class="list-group-item"  *ngFor="let item of items | async">
-        <a [routerLink]="['/workouts', item.id]" class="list-item-name">{{item.start | amDateFormat:'ddd DD MMMM YYYY HH:mm:ss'}} </a>
+        <a [routerLink]="['/workouts', item.id]" class="list-item-name">{{item.start | amDateFormat:'ddd DD MMMM YYYY HH:mm'}} </a>
         <!-- <button (click)="this.deleteWorkout(item)">Delete</button> -->
 
       </li>

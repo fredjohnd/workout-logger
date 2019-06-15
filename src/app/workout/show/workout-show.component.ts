@@ -5,7 +5,7 @@ import { Category } from './../../shared/category.model';
 import { WorkoutExercise, WorkoutPlanCategory } from './../../shared/workout.model';
 import { CategoryService } from './../../shared/category.service';
 import { WorkoutService } from './../../shared/workout.service';
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Workout } from 'src/app/shared/workout.model';
@@ -26,7 +26,7 @@ export class WorkoutShowComponent implements OnDestroy {
   id: string;
   workout: Workout;
   // lastWorkout: Workout = null;
-
+  time = null;
   modelSub: Subscription = null;
   // lastWorkoutSub: Subscription = null;
 
@@ -43,6 +43,7 @@ export class WorkoutShowComponent implements OnDestroy {
     this.modelSub = this.route.params.subscribe(params => {
       this.model(params);
     });
+
    }
 
    model(params: Params) {
@@ -141,9 +142,13 @@ export class WorkoutShowComponent implements OnDestroy {
     // this.saveWorkout();
   }
 
-  addExerciseValue(exercise: WorkoutExercise) {
-    exercise.values.push('10x10');
+  addExerciseValue(exercise: WorkoutExercise, value: string = '10x10') {
+    exercise.values.push(value);
     // this.saveWorkout();
+  }
+
+  deleteExerciseValue(exercise: WorkoutExercise, valueIndex: number) {
+    exercise.values.splice(valueIndex, 1);
   }
 
   updateValue(categoryIndex: number, exerciseIndex: number, valueIndex: number , value: string) {
@@ -200,7 +205,7 @@ export class WorkoutShowComponent implements OnDestroy {
   deleteWorkout() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        message: `Are you sure you want to delete this workout"?`,
+        message: `Are you sure you want to delete this workout?`,
       }
     });
     dialogRef.afterClosed().subscribe(confirm => {

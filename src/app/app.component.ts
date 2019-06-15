@@ -45,6 +45,9 @@ export class AppComponent {
       iconRegistry.addSvgIcon('timer-off',
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/timer_off.svg'));
 
+      iconRegistry.addSvgIcon('arrow-right',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/arrow_right.svg'));
+
     }
 
   }

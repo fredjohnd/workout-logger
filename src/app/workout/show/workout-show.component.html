@@ -7,8 +7,6 @@
   >
 </app-workout-header-navigation>
 
-<!-- <button (click)="this.deleteWorkout()">Delete Workout</button> -->
-
 </div>
 
 <div class="row">
@@ -49,6 +47,17 @@
                           <div class="row">
                             <mat-form-field class="col-6 col-md-4 col-lg-3" *ngFor="let value of exercise.values; let valueIndex = index; trackBy:exerciseTracker">
                               <input matInput class="mr-2" [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)">
+
+                              <div class="form-field-actions">
+
+                                <button class="mat-button mat-button-focus-actions button-delete-value" (click)="this.deleteExerciseValue(exercise, valueIndex)">
+                                  <mat-icon svgIcon="delete" aria-label="delete">delete set</mat-icon>
+                                </button>
+                                <button class="mat-button mat-button-focus-actions button-copy-value" (click)="this.addExerciseValue(exercise, value)">
+                                  <mat-icon svgIcon="arrow-right" aria-label="Add set">copy exercise set</mat-icon>
+                                </button>
+                              </div>
+
                             </mat-form-field>
                           </div>
                         </div>
@@ -74,24 +83,45 @@
     </div>
 
     <!-- End Category -->
-    <div class="workout-actions ml-3 mt-3">
+    <!-- <div class="workout-actions ml-3 mt-3">
       <button class="mr-2" mat-raised-button (click)="this.onShowCategoryPicker()">Add Category</button>
-    </div>
+    </div> -->
 
     <footer class="col-12 pl-0 pr-0">
         <mat-toolbar color="primary">
             <mat-toolbar-row>
+
               <div class="d-flex">
+
+                <!-- Add category button -->
+                <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.onShowCategoryPicker()">
+                  <span>
+                    <mat-icon svgIcon="list-add" aria-label="Add category">add category</mat-icon>
+                    <span>Add Category</span>
+                  </span>
+                </button>
+
+                <!-- Finish workout button -->
                 <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.finishWorkout()">
                   <span>
                     <mat-icon svgIcon="timer-off" aria-label="Finish workout">finish workout</mat-icon>
                     <span>Finish workout</span>
                   </span>
                 </button>
+
+                <!-- Save workout button -->
                 <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.saveWorkout()">
                   <span>
                   <mat-icon svgIcon="save" aria-label="Save Workout">save</mat-icon>
                   <span>Save Workout</span>
+                </span>
+                </button>
+
+                <!-- Delete workout button -->
+                <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.deleteWorkout()">
+                  <span>
+                  <mat-icon svgIcon="delete" aria-label="Delete Workout">delete</mat-icon>
+                  <span>Delete Workout</span>
                 </span>
                 </button>
               </div>
