@@ -38,6 +38,9 @@ input {
       fill: $text-color;
     }
   }
+  .mat-button {
+    min-width: 30px;
+  }
 }
 
 .mat-form-field:hover .form-field-actions {
