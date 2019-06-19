@@ -1,8 +1,8 @@
 <div class="row">
-  <!-- <div class="d-flex justify-content-between align-items-start" *ngIf="model"> -->
 
-    <div class="col-4">
-        <div class="d-flex justify-content-start">
+  <!-- Previous Workout -->
+  <div class="col-6">
+    <div class="d-flex justify-content-start">
       <ng-container *ngIf="previousWorkout; else noPrevious">
         <div class="d-flex align-items-center">
           <mat-icon svgIcon="chevron-left"></mat-icon>
@@ -16,29 +16,29 @@
     </div>
   </div>
 
-    <div class="col-4">
-      <div>
-        <h4 class="d-flex align-items-center justify-content-center">{{this.model.start | amDateFormat:'ddd DD MMM HH:mm'}}
-          <button (click)="this.changeStartTime()" mat-icon-button>
-            <mat-icon svgIcon="time" aria-label="time">time</mat-icon>
-          </button>
-          <ng-container *ngIf="this.model.finish">
-             - {{this.model.finish | amDateFormat: 'HH:mm'}}
-          </ng-container>
-        </h4>
+
+  <!-- Next Workout -->
+  <div class="col-6 text-right">
+    <ng-container *ngIf="nextWorkout; else noNext">
+      <div class="d-flex align-items-center justify-content-end">
+        <a [routerLink]="['/workouts', nextWorkout.id]">{{this.nextWorkout.start | amDateFormat:'ddd DD MMM'}}</a>
+        <mat-icon svgIcon="chevron-right"></mat-icon>
       </div>
-    </div>
+    </ng-container>
 
-    <div class="col-4 text-right">
-      <ng-container *ngIf="nextWorkout; else noNext">
-        <div class="d-flex align-items-center justify-content-end">
-          <a [routerLink]="['/workouts', nextWorkout.id]">{{this.nextWorkout.start | amDateFormat:'ddd DD MMM'}}</a>
-          <mat-icon svgIcon="chevron-right"></mat-icon>
-        </div>
-      </ng-container>
+    <ng-template #noNext>
+      <span class="faded mr-2">Next</span>
+    </ng-template>
+  </div>
+</div>
 
-      <ng-template #noNext>
-        <span class="faded">Next</span>
-      </ng-template>
-    </div>
-  <!-- </div> -->
+<!-- Workout Date + Start time -->
+<div class="row">
+  <div class="col-12 text-center">
+    <h5 class="mb-0">{{this.model.start | amDateFormat:'ddd DD MMM'}}</h5>
+    <h6>
+      <span>{{this.model.start | amDateFormat:'HH:mm'}}</span>
+      <span *ngIf="this.model.finish"> - {{this.model.finish | amDateFormat:'HH:mm'}}</span>
+    </h6>
+  </div>
+</div>
