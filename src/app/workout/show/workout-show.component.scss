@@ -5,7 +5,7 @@ ul {
 }
 
 input {
-  width: 100px;
+  width: 40px;
 }
 
 .workout-actions {
@@ -19,10 +19,25 @@ input {
   color: #fff;
 }
 
-.exercise-title {
-  color: $header-color;
+.exercise-entry-contents {
+  min-height: 95px;
 }
 
+.exercise-title {
+  text-transform: uppercase;
+  font-family: $font-secondary;
+}
+
+.exercise-actions {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+}
+
+.add-value-msg {
+  color: $text-color-secondary;
+  font-style: italic;
+}
 .mat-expansion-panel-body {
   background: #fff;
 }
