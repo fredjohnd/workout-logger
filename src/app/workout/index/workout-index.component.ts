@@ -1,6 +1,7 @@
+import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { WorkoutService } from './../../shared/workout.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Workout } from 'src/app/shared/workout.model';
 import { Observable } from 'rxjs';
 
@@ -14,7 +15,7 @@ export class WorkoutIndexComponent {
   id: string;
   items: Observable<Workout[]>;
 
-  constructor(private route: ActivatedRoute, private workoutService: WorkoutService) {
+  constructor(private router: Router, private route: ActivatedRoute, private workoutService: WorkoutService) {
 
     this.route.params.subscribe(params => {
       this.model(params);
@@ -30,7 +31,9 @@ export class WorkoutIndexComponent {
   }
 
   addWorkout() {
-    this.workoutService.add();
+    this.workoutService.add().then((workoutDocument: AngularFirestoreDocument) => {
+      this.router.navigate(['workouts', workoutDocument.ref.id]);
+    });
   }
 
   // deleteWorkout(workout: Workout) {
