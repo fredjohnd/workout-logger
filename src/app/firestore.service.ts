@@ -78,7 +78,7 @@ export class FirestoreService {
 
       saveObject(ref: DocumentReference, objectData: DocumentData) {
         const serialized = serialize(ref, objectData);
-        ref.set(serialized);
+        return ref.set(serialized);
       }
 
     }

@@ -34,11 +34,14 @@
 
 <!-- Workout Date + Start time -->
 <div class="row">
-  <div class="col-12 text-center">
-    <h5 class="mb-0">{{this.model.start | amDateFormat:'ddd DD MMM'}}</h5>
-    <h6>
-      <span>{{this.model.start | amDateFormat:'HH:mm'}}</span>
-      <span *ngIf="this.model.finish"> - {{this.model.finish | amDateFormat:'HH:mm'}}</span>
-    </h6>
+  <div class="col-12 text-center d-flex justify-content-center align-items-baseline">
+    <div>
+      <h5 class="mb-0">{{this.model.start | amDateFormat:'ddd DD MMM'}}</h5>
+      <h6>
+        <span>{{this.model.start | amDateFormat:'HH:mm'}}</span>
+        <span *ngIf="this.model.finish"> - {{this.model.finish | amDateFormat:'HH:mm'}}</span>
+      </h6>
+  </div>
+  <ng-content></ng-content>
   </div>
 </div>

@@ -5,6 +5,52 @@
   class="text-center"
   (startTimeUpdate)="this.updateWorkoutStartDate()"
   >
+  <mat-menu #appMenu="matMenu" yPosition="below">
+    <!-- Add category button -->
+    <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-menu-item (click)="this.onShowCategoryPicker()">
+      <span>
+        <mat-icon svgIcon="list-add" aria-label="Add category">add category</mat-icon>
+        <span>Add Category</span>
+      </span>
+    </button>
+
+    <!-- Change start time button -->
+    <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-menu-item (click)="this.updateWorkoutStartDate()">
+      <span>
+        <mat-icon svgIcon="timer-on" aria-label="Finish workout">change start time</mat-icon>
+        <span>Change start time</span>
+      </span>
+    </button>
+
+    <!-- Finish workout button -->
+    <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-menu-item (click)="this.finishWorkout()">
+      <span>
+        <mat-icon svgIcon="timer-off" aria-label="Finish workout">finish workout</mat-icon>
+        <span>Finish workout</span>
+      </span>
+    </button>
+
+    <!-- Save workout button -->
+    <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-menu-item (click)="this.saveWorkout()">
+      <span>
+        <mat-icon svgIcon="save" aria-label="Save Workout">save</mat-icon>
+        <span>Save Workout</span>
+      </span>
+    </button>
+
+    <!-- Delete workout button -->
+    <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-menu-item (click)="this.deleteWorkout()">
+      <span>
+        <mat-icon svgIcon="delete" aria-label="Delete Workout">delete</mat-icon>
+        <span>Delete Workout</span>
+      </span>
+    </button>
+  </mat-menu>
+
+  <button mat-icon-button [matMenuTriggerFor]="appMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+
 </app-workout-header-navigation>
 
 </div>
@@ -14,132 +60,116 @@
 
     <div class="category-entry mb-2 shadow bg-white rounded" *ngFor="let category of workout.plan; let categoryIndex = index">
 
-    <mat-accordion>
+      <mat-accordion>
         <mat-expansion-panel [expanded]="true">
-          <mat-expansion-panel-header class="pl-0">
+          <mat-expansion-panel-header class="pl-0" [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
             <mat-panel-title>
               <div class="col-10 d-flex align-items-center">
                 <h5 class="d-flex align-items-center category-header">
-                <span class="d-flex align-items-center ml-2 mr-2">{{this.getCategoryNameById(category.category)}}</span>
-                  <button [disabled]="category.exercises.length > 0" mat-icon-button (click)="this.deleteCategory(categoryIndex)">
-                    <mat-icon svgIcon="delete" color="warn" aria-label="Delete Exercise">delete</mat-icon>
-                  </button>
+                  <span class="d-flex align-items-center ml-2 mr-2">{{this.getCategoryNameById(category.category)}}</span>
                 </h5>
               </div>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
 
 
 
-            <ul class="exercise-list pl-0 ml-0 mt-2">
+          <ul class="exercise-list pl-0 ml-0 mt-2">
 
-                <li class="exercise-entry mb-2 pb-2" *ngFor="let exercise of category.exercises; let exerciseIndex = index; trackBy:indexTracker">
+            <ng-container *ngIf="category.exercises.length; else addExerciseMessage">
+            <li class="exercise-entry mb-2 pt-2" *ngFor="let exercise of category.exercises; let exerciseIndex = index; trackBy:indexTracker;">
 
-                  <div class="row d-flex align-items-baseline border bg-light position-relative exercise-entry-contents">
+              <div class="row d-flex align-items-baseline border bg-light position-relative exercise-entry-contents">
 
-                    <div class="d-flex align-items-center mt-2 ml-2">
-                      <!-- <button mat-icon-button (click)="this.deleteExercise(categoryIndex, exerciseIndex)">
-                        <mat-icon svgIcon="delete" aria-label="Delete Exercise">delete</mat-icon>
-                      </button> -->
-                      <span class="exercise-title">{{this.getExerciseNameById(exercise.exercise)}}</span>
-                    </div>
+                <div class="d-flex col-12 align-items-center mt-2">
+                  <span class="exercise-title">{{this.getExerciseNameById(exercise.exercise)}}</span>
+                </div>
 
+                <div class="col-12 col-md-10">
+                  <div class="row d-flex align-items-baseline ">
                     <div class="col-12">
-                      <div class="row d-flex align-items-baseline ">
-                        <div class="col-10">
-                          <div class="row pb-2">
+                      <div class="row pb-2">
 
-                            <ng-container *ngIf="exercise.values.length > 0; else addValueMessage">
-                                <mat-form-field class="col-3" *ngFor="let value of exercise.values; let valueIndex = index; trackBy:exerciseTracker">
-                                    <input matInput class="mr-2" [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)">
+                        <ng-container *ngIf="exercise.values.length > 0; else addValueMessage">
+                          <mat-form-field class="col-4 col-md-3" *ngFor="let value of exercise.values; let valueIndex = index; trackBy:exerciseTracker">
+                            <input matInput class="mr-2" [value]="value" (blur)="this.updateValue(categoryIndex, exerciseIndex, valueIndex, $event.target.value)">
 
-                                    <div class="form-field-actions">
+                            <div class="form-field-actions">
 
-                                      <button class="mat-button mat-button-focus-actions button-delete-value pl-0 pr-0" (click)="this.deleteExerciseValue(exercise, valueIndex)">
-                                        <mat-icon svgIcon="delete" aria-label="delete">delete set</mat-icon>
-                                      </button>
-                                      <button class="mat-button mat-button-focus-actions button-copy-value pl-0 pr-0" (click)="this.addExerciseValue(exercise, value)">
-                                        <mat-icon svgIcon="arrow-right" aria-label="Add set">copy exercise set</mat-icon>
-                                      </button>
-                                    </div>
+                              <button class="mat-button mat-button-focus-actions button-delete-value pl-0 pr-0" (click)="this.deleteExerciseValue(exercise, valueIndex)">
+                                <mat-icon svgIcon="delete" aria-label="delete">delete set</mat-icon>
+                              </button>
+                              <button class="mat-button mat-button-focus-actions button-copy-value pl-0 pr-0" (click)="this.addExerciseValue(exercise, value)">
+                                <mat-icon svgIcon="arrow-right" aria-label="Add set">copy exercise set</mat-icon>
+                              </button>
+                            </div>
 
-                                  </mat-form-field>
-                            </ng-container>
-                            <ng-template #addValueMessage>
-                              <span class="add-value-msg ml-2">Click + to add a value</span>
-                            </ng-template>
-                          </div>
-                        </div>
+                          </mat-form-field>
+                        </ng-container>
+                        <ng-template #addValueMessage>
+                          <span class="add-value-msg mt-2 ml-3">No values for this exercise yet</span>
+                        </ng-template>
                       </div>
                     </div>
-                    <div class="col-2 text-right exercise-actions">
-                      <button mat-mini-fab color="basic" (click)="this.addExerciseValue(exercise)" type="button">+</button>
-                    </div>
-
                   </div>
-                  <!-- /row -->
+                </div>
+                <div class="col-12 col-md-2 text-right d-flex flex-nowrap exercise-actions mb-2">
+                  <button mat-raised-button color="basic" (click)="this.addExerciseValue(exercise)">Add</button>
+                  <mat-menu #exerciseActions="matMenu" yPosition="below">
+                    <button mat-menu-item (click)="this.deleteExercise(categoryIndex, exerciseIndex)">Delete</button>
+                  </mat-menu>
+                  <button mat-icon-button [matMenuTriggerFor]="exerciseActions">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                </div>
 
-                </li>
-              </ul>
-              <button mat-raised-button color="primary" (click)="this.onShowExercisePicker(category)" class="ml-2 mb-2">Add Exercise</button>
-          </mat-expansion-panel>
+              </div>
+              <!-- /row -->
 
-          </mat-accordion>
-        </div>
+            </li>
+          </ng-container>
+          <ng-template #addExerciseMessage>
+              <span class="add-value-msg d-block mt-3">No exercises for this category yet</span>
+            </ng-template>
+          </ul>
+          <button mat-raised-button color="primary" (click)="this.onShowExercisePicker(category)" class="mb-2">Add Exercise</button>
+          <button mat-button [disabled]="category.exercises.length > 0" (click)="this.deleteCategory(categoryIndex)">Delete</button>
+        </mat-expansion-panel>
 
-      <mat-divider></mat-divider>
-
+      </mat-accordion>
     </div>
 
-    <!-- End Category -->
-    <!-- <div class="workout-actions ml-3 mt-3">
-      <button class="mr-2" mat-raised-button (click)="this.onShowCategoryPicker()">Add Category</button>
-    </div> -->
-
-    <footer class="col-12 pl-0 pr-0">
-        <mat-toolbar color="primary">
-            <mat-toolbar-row>
-
-              <div class="d-flex">
-
-                <!-- Add category button -->
-                <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.onShowCategoryPicker()">
-                  <span>
-                    <mat-icon svgIcon="list-add" aria-label="Add category">add category</mat-icon>
-                    <span>Add Category</span>
-                  </span>
-                </button>
-
-                <!-- Finish workout button -->
-                <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.finishWorkout()">
-                  <span>
-                    <mat-icon svgIcon="timer-off" aria-label="Finish workout">finish workout</mat-icon>
-                    <span>Finish workout</span>
-                  </span>
-                </button>
-
-                <!-- Save workout button -->
-                <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.saveWorkout()">
-                  <span>
-                  <mat-icon svgIcon="save" aria-label="Save Workout">save</mat-icon>
-                  <span>Save Workout</span>
-                </span>
-                </button>
-
-                <!-- Delete workout button -->
-                <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.deleteWorkout()">
-                  <span>
-                  <mat-icon svgIcon="delete" aria-label="Delete Workout">delete</mat-icon>
-                  <span>Delete Workout</span>
-                </span>
-                </button>
-              </div>
-            </mat-toolbar-row>
-          </mat-toolbar>
-
-      <!-- <button class="mr-2" mat-raised-button (click)="this.finishWorkout()">Finish workout</button>
-      <button mat-raised-button (click)="this.saveWorkout()">Save Workout</button> -->
-
-      </footer>
+    <mat-divider></mat-divider>
 
   </div>
+
+  <!-- End Category -->
+
+
+  <footer class="fixed-bottom col-12 pl-0 pr-0 d-none d-lg-block .d-xl-block">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <div class="d-flex">
+
+          <!-- Add category button -->
+          <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.onShowCategoryPicker()">
+            <span>
+              <mat-icon svgIcon="list-add" aria-label="Add category">add category</mat-icon>
+              <span>Add Category</span>
+            </span>
+          </button>
+
+          <!-- Save workout button -->
+          <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-button (click)="this.saveWorkout()">
+            <span>
+              <mat-icon svgIcon="save" aria-label="Save Workout">save</mat-icon>
+              <span>Save Workout</span>
+            </span>
+          </button>
+
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </footer>
+
+</div>

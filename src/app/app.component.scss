@@ -33,7 +33,7 @@ a, .card-title {
   border-color: darken($bg-color, 10%);
 }
 
-.mat-button {
+.mat-button, button {
   &:focus, &:active {
     outline: none;
   }
@@ -59,7 +59,8 @@ a, .card-title {
   .mat-expansion-panel:not(.mat-expanded),
   .mat-expansion-panel:not(.mat-expanded):hover,
   .mat-expansion-panel-header.mat-expanded:hover,
-  .mat-expansion-panel-header.mat-expanded:focus {
+  .mat-expansion-panel-header.mat-expanded:focus,
+  .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
     background: mat-color($primary);
     color: #fff;
   }

@@ -25,10 +25,8 @@ export class WorkoutShowComponent implements OnDestroy {
 
   id: string;
   workout: Workout;
-  // lastWorkout: Workout = null;
   time = null;
   modelSub: Subscription = null;
-  // lastWorkoutSub: Subscription = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -198,8 +196,9 @@ export class WorkoutShowComponent implements OnDestroy {
   }
 
   saveWorkout() {
-    this.workoutService.save(this.workout);
-    this.notificationService.show('Workout saved!', ':)');
+    this.workoutService.save(this.workout).then(() => {
+      this.notificationService.show('Workout saved!', ':)');
+    });
   }
 
   deleteWorkout() {
