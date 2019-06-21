@@ -1,0 +1,57 @@
+<footer>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <div class="d-flex">
+
+          <!-- Add category button -->
+          <button class="d-flex align-items-center flex-grow-0 flex-shrink-1 p-0 mr-2" mat-button (click)="this.showCategoryPicker.emit()">
+            <span>
+              <mat-icon svgIcon="list-add" aria-label="Add category">add category</mat-icon>
+              <span>Add Category</span>
+            </span>
+          </button>
+
+          <!-- Save workout button -->
+          <button class="d-flex align-items-center flex-grow-0 flex-shrink-1 p-0 mr-2" mat-button (click)="this.workoutSave.emit()">
+            <span>
+              <mat-icon svgIcon="save" aria-label="Save Workout">save</mat-icon>
+              <span>Save Workout</span>
+            </span>
+          </button>
+
+          <!-- More Menu -->
+          <mat-menu #appMenu="matMenu" yPosition="above">
+
+              <!-- Change start time button -->
+              <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-menu-item (click)="this.workoutSetStartDate.emit($event)">
+                <span>
+                  <mat-icon svgIcon="timer-on" aria-label="Finish workout">change start time</mat-icon>
+                  <span>Change start time</span>
+                </span>
+              </button>
+
+              <!-- Finish workout button -->
+              <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-menu-item (click)="this.workoutFinish.emit($event)">
+                <span>
+                  <mat-icon svgIcon="timer-off" aria-label="Finish workout">finish workout</mat-icon>
+                  <span>Finish workout</span>
+                </span>
+              </button>
+
+              <!-- Delete workout button -->
+              <button class="d-flex align-items-center flex-grow-0 flex-shrink-1" mat-menu-item (click)="this.workoutDelete.emit()">
+                <span>
+                  <mat-icon svgIcon="delete" aria-label="Delete Workout">delete</mat-icon>
+                  <span>Delete Workout</span>
+                </span>
+              </button>
+            </mat-menu>
+
+            <button mat-icon-button class="d-flex align-items-center flex-grow-0 flex-shrink-1 p-0 mr-2"  [matMenuTriggerFor]="appMenu">
+              <mat-icon>more_vert</mat-icon> More
+            </button>
+
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </footer>

@@ -60,9 +60,9 @@ export class WorkoutShowComponent implements OnDestroy {
     return this.categoryService.getCategoryNameById(categoryId);
   }
 
-  getExerciseNameById(exerciseId: string): string {
-    return this.exerciseService.getExerciseNameById(exerciseId);
-  }
+  // getExerciseNameById(exerciseId: string): string {
+  //   return this.exerciseService.getExerciseNameById(exerciseId);
+  // }
 
   onShowExercisePicker(category: WorkoutPlanCategory) {
 
@@ -149,7 +149,7 @@ export class WorkoutShowComponent implements OnDestroy {
     exercise.values.splice(valueIndex, 1);
   }
 
-  updateValue(categoryIndex: number, exerciseIndex: number, valueIndex: number , value: string) {
+  updateExerciseValue(categoryIndex, exerciseIndex, {valueIndex, value}) {
     this.workout.plan[categoryIndex].exercises[exerciseIndex].values[valueIndex] = value;
     // this.saveWorkout();
   }
@@ -219,9 +219,9 @@ export class WorkoutShowComponent implements OnDestroy {
     return index;
   }
 
-  exerciseTracker(index: number, value: any) {
-    return `${value.exercise}-${index}`;
-  }
+  // exerciseTracker(index: number, value: any) {
+  //   return `${value.exercise}-${index}`;
+  // }
 
   ngOnDestroy() {
     console.log('Unsubscribe');

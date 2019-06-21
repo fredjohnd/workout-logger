@@ -34,6 +34,8 @@ import { WorkoutHeaderNavigationComponent } from './components/workout-header-na
 import { InputDialogComponent } from './components/input-dialog/input-dialog.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { WorkoutFooterComponent } from './components/workout-footer/workout-footer.component';
+import { WorkoutExerciseComponent } from './components/workout-exercise/workout-exercise.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { HttpClientModule } from '@angular/common/http';
     ItemSelectorComponent,
     WorkoutHeaderNavigationComponent,
     InputDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    WorkoutFooterComponent,
+    WorkoutExerciseComponent
   ],
   imports: [
     BrowserModule,

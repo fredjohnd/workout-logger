@@ -1,0 +1,30 @@
+@import '../../shared/scss/variables.scss';
+
+.exercise-entry-contents {
+  min-height: 95px;
+}
+
+.exercise-title {
+  text-transform: uppercase;
+  font-family: $font-secondary;
+}
+
+.mat-form-field:hover .form-field-actions {
+  display: flex;
+}
+
+.form-field-actions {
+  display: none;
+  position: absolute;
+  bottom: -30px;
+  right: 0px;
+  .mat-icon {
+    fill: #ccc;
+    &:hover {
+      fill: $text-color;
+    }
+  }
+  .mat-button {
+    min-width: 30px;
+  }
+}

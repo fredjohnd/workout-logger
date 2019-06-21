@@ -4,10 +4,6 @@ ul {
   list-style: none;
 }
 
-// input {
-//   width: 40px;
-// }
-
 .workout-wrapper {
   margin-bottom: 60px;
 }
@@ -22,51 +18,14 @@ ul {
   color: #fff;
 }
 
-.exercise-entry-contents {
-  min-height: 95px;
-}
 
-.exercise-title {
-  text-transform: uppercase;
-  font-family: $font-secondary;
-}
-
-// .exercise-actions {
-//   position: absolute;
-//   right: 0;
-//   bottom: 10px;
-// }
-
-.add-value-msg {
-  color: $text-color-secondary;
-  font-style: italic;
-}
 .mat-expansion-panel-body {
   background: #fff;
 }
 
-.form-field-actions {
-  display: none;
-  position: absolute;
-  bottom: -30px;
-  right: 0px;
-  .mat-icon {
-    fill: #ccc;
-    &:hover {
-      fill: $text-color;
-    }
-  }
-  .mat-button {
-    min-width: 30px;
-  }
-}
 
-.mat-form-field:hover .form-field-actions {
-// .mat-form-field:active .form-field-actions,
-// .mat-form-field:focus .form-field-actions {
 
-  display: flex;
-}
+
 
 footer {
   z-index: 999; // material snackbar component has z-index of 1000 and would show under the footer

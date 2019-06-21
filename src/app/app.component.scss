@@ -53,6 +53,11 @@ a, .card-title {
   flex-direction: row;
 }
 
+.placeholder__message {
+  color: $text-color-secondary;
+  font-style: italic;
+}
+
 .mat-accordion {
 
   .mat-expansion-panel-header,

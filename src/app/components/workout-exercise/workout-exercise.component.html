@@ -1,0 +1,45 @@
+<div class="row d-flex align-items-baseline border bg-light position-relative exercise-entry-contents">
+
+  <div class="d-flex col-12 align-items-center mt-2">
+    <span class="exercise-title">{{this.getExerciseNameById(exercise.exercise)}}</span>
+  </div>
+
+  <div class="col-12 col-md-10">
+    <div class="row d-flex align-items-baseline">
+      <div class="col-12">
+        <div class="row pb-2">
+
+          <ng-container *ngIf="exercise.values.length > 0; else addValueMessage">
+            <mat-form-field class="col-4 col-md-3" *ngFor="let value of exercise.values; let valueIndex = index; trackBy:exerciseTracker">
+              <input matInput class="mr-2" [value]="value" (blur)="this.onUpdateValue(valueIndex, $event.target.value)">
+
+              <div class="form-field-actions">
+
+                <button class="mat-button mat-button-focus-actions pl-0 pr-0" (click)="this.onDeleteValue(valueIndex)">
+                  <mat-icon svgIcon="delete" aria-label="delete">delete set</mat-icon>
+                </button>
+                <button class="mat-button mat-button-focus-actions pl-0 pr-0" (click)="this.onAddValue(value)">
+                  <mat-icon svgIcon="arrow-right" aria-label="Add set">copy exercise set</mat-icon>
+                </button>
+              </div>
+
+            </mat-form-field>
+          </ng-container>
+          <ng-template #addValueMessage>
+            <span class="placeholder__message mt-2 ml-3">No values for this exercise yet</span>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-2 text-right d-flex flex-nowrap exercise-actions mb-2">
+    <button mat-raised-button color="basic" (click)="this.onAddValue()">Add</button>
+    <mat-menu #exerciseActions="matMenu" yPosition="below">
+      <button mat-menu-item (click)="this.onDeleteExercise()">Delete</button>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="exerciseActions">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </div>
+
+</div>
